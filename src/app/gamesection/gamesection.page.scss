@@ -1,0 +1,120 @@
+
+ .content{
+  background-image: url("../../assets/img/app-bg.png");
+  height: 100%;
+  width: 100%;
+   background-position: center; 
+   position: fixed;
+   background-size: cover;
+    background-repeat: no-repeat; 
+}
+
+.router-link-active{
+
+
+}
+.rounded-top{
+  display: flex;
+  align-content: center;
+    width: 100px;
+    height: 30px;
+}
+
+
+
+.resp-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+}
+
+//  timer styles
+
+// timer styles
+h1{ 
+    color: #396; 
+    font-weight: 100; 
+    font-size: 40px; 
+    margin: 40px 0px 20px; 
+  } 
+   #clockdiv{ 
+      font-family: sans-serif; 
+      color: rgb(253, 252, 252); 
+      display: inline-block; 
+      font-weight: bold; 
+      text-align: center; 
+      font-size: 35px; 
+  } 
+
+  #clockdiv > div{ 
+      padding: 5px; 
+      border-radius: 3px; 
+      background: rgb(202, 226, 221); 
+      display: inline-block; 
+  } 
+  #clockdiv div > span{ 
+      padding: 15px; 
+      border-radius: 3px; 
+    //   background: #00816A; 
+      display: inline-block; 
+  } 
+  .smalltext{ 
+      padding-top: 5px; 
+      font-size: 16px; 
+  } 
+  //   loading
+.toast-container{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    top: auto;
+    margin-bottom: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+  }
+
+  #snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+  }
+  
+  #snackbar {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  @-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+  

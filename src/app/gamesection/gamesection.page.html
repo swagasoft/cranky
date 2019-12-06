@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    
+    <img class="rounded-top"  src="../../../assets/icon/Logoicon.png">
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content">
+
+    <!-- fab placed to the (vertical) center and start -->
+
+  <!-- content area --> 
+  <div class=" m-0">
+  <div class="resp-container game-over-section m-0">
+      <ion-card class=" d-flex justify-content-center m-0">
+        <div id="clockdiv"> 
+          <ion-row>
+              <ion-row>
+                  <div> 
+                      <span class="days" id="day">{{gameService.timeDays }} </span> 
+                      <div class="smalltext">Days</div> 
+                    </div>
+              </ion-row>
+                 <ion-row>
+                    <div> 
+                        <span class="hours" id="hour">{{gameService.timeHours}} </span> 
+                        <div class="smalltext">Hours</div> 
+                      </div>
+                 </ion-row>
+                    <ion-row>
+                        <div> 
+                            <span class="minutes" id="minute">{{gameService.timeMinute}} </span> 
+                            <div class="smalltext">Minutes</div> 
+                          </div>
+                    </ion-row> 
+                     <ion-row>
+                        <div> 
+                            <span class="seconds" id="second">{{gameService.timeSeconds}} </span> 
+                            <div class="smalltext">Seconds</div> 
+                          </div> 
+                     </ion-row>
+          </ion-row>
+        </div> 
+      </ion-card>
+
+      <ion-card *ngIf="gameService.gameLive" class="d-flex m-0 justify-content-center">
+        <h1 class="text-white text-center font-weight-bold">LIVE!</h1>
+      </ion-card>
+      
+
+      <!-- <ion-card>
+        <h1>LIVE...</h1>
+      </ion-card> -->
+
+      <ion-card *ngIf="gameService.gameNotLive" class="m-0 d-flex justify-content-center">
+        <iframe class="m-0" width="100%" height="100%"
+          src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe> 
+      </ion-card>
+  </div>
+
+    <div class="game-tip" *ngIf="gameService.gameNotLive">
+        <ion-card style="background-color: e0eebb;"  class="m-0 "  rows="6" cols="20">
+          <ion-card-header class="text-center  green darken-4 text-white">GAME TIPS& FUN FACTS</ion-card-header>
+          <ion-card-content class="p-5" >
+           <ion-slides #mySlider>
+             <ion-slide  *ngFor="let item of gameService?.gameTipArray">
+               <ion-card>
+                 <h2 style="font-size: large;" class=" text-center text-white">{{item.tip}}</h2>
+               </ion-card>
+                </ion-slide>
+           </ion-slides>
+          </ion-card-content>
+        </ion-card>
+    </div>
+
+    <div class="  mt-5 game-live" *ngIf="gameService.gameLive">
+        <ion-list>
+            <ion-button expand="block" size="large" color="success"  [routerLink]="['/playsection']">
+               <ion-icon class="mr-3" name="logo-game-controller-b"></ion-icon>  CONTINUE TO GAME</ion-button>
+
+            <ion-button expand="block"  size="large" color="success" 
+             [routerLink]="['/leaderboard']"><ion-icon  class="mr-3" name="trophy"></ion-icon>  LEADERBOARD</ion-button>
+
+            <ion-button expand="block"  size="large" color="success"
+              [routerLink]="['/myrecord']"> <ion-icon  class="mr-3" name="list"></ion-icon> MY RECORD(S)</ion-button>
+        </ion-list>
+
+       
+    </div>
+    
+    <!-- <div  class=" ">
+      <div class="toast-container mb-5">
+        <ion-chip>
+          <ion-label class="font-weight-bold text-danger"> YOUR ACCOUNT IS LOW! CLICK HERE  </ion-label> <br>
+          <ion-icon (click)="makePayment()" size="large" name="wallet" color="success"></ion-icon>
+        </ion-chip>
+      </div>
+    </div> -->
+    <div id="snackbar" *ngIf="userService.networkDisconnet" >No internet connection !</div>
+  </div>
+  <!-- end content area -->
+</div>
+</ion-content>
+

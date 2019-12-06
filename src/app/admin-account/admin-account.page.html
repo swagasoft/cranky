@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-img class="rounded-top"  src="../../assets/icon/Logoicon.png"></ion-img>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+
+    <ion-segment >
+    <ion-segment-button [routerLink]="['/gamesection']">
+      <ion-label ><ion-icon size="large" name="home"></ion-icon> </ion-label>
+    </ion-segment-button>
+    <ion-segment-button  [routerLink]="['/manage-questions']">
+      <ion-label >  <ion-icon size="large" name="help"></ion-icon> </ion-label>
+    </ion-segment-button>
+    <ion-segment-button  [routerLink]="['/payouts']">
+      <ion-label ><ion-icon size="large"  name="wallet"></ion-icon> </ion-label>
+    </ion-segment-button>
+    <ion-segment-button  [routerLink]="['/admin-account']">
+      <ion-label><ion-icon size="large"  name="people"></ion-icon></ion-label>
+    </ion-segment-button>
+  </ion-segment>
+    <!-- content -->
+
+
+    <br>
+    <h3 class="text-center text-success">CURRENT APP DATE:  {{gameService.applicationDate}} </h3>
+    
+    <div style="background-color: darkgreen; border: 3px black;" class="p-5 ">
+      <div *ngIf="loading">
+          <ion-progress-bar type="indeterminate"></ion-progress-bar>
+      </div>
+      <form #dateform name="dateform" (submit)="submitDate(dateform)">
+        <ion-item>
+            <ion-label  class="ml-3"  
+             position="floating">enter date in format</ion-label>
+          <ion-input #setdate name="setdate" [(ngModel)]="model.date" placeholder="jan 5, 2019 06:00:00"></ion-input>
+         </ion-item>
+         <ion-button type="submit"> <ion-icon name="checkmark" size="large"></ion-icon> </ion-button>
+        </form>
+
+         <!-- <p class="text-white text-center font-weight-bold">jan 5, 2019 06:00:00</p> -->
+         <ion-button size="large" [disabled]="!setdate.value"
+          (click)="activateDate()">ACTIVATE DATE</ion-button>
+    </div>
+
+    <div *ngIf="loading">
+      <p class="p-5 bg-dark text-white">loading </p>
+    </div>
+
+
+
+</ion-content>

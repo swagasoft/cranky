@@ -1,0 +1,97 @@
+
+     <ion-header>
+        <ion-toolbar>
+          
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+            <div class="row d-flex justify-content-center">
+              <img class="rounded-top"  src="../../../assets/icon/Logoicon.png">
+
+            </div>
+        </ion-toolbar>
+      </ion-header>
+
+    <ion-content>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://js.paystack.co/v1/paystack.js"></script>
+
+       <!-- fab placed to the top end -->
+     <ion-fab [routerLink]="['/gamesection']" vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button   color="light">
+        <ion-icon  name="logo-game-controller-b"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <div class="content">
+        <!-- content area -->
+        <div>
+            <ion-card class="text-center">
+                <ion-card-header color="success" class="font-weight-bold text-white"> PAYMENT</ion-card-header>
+                <ion-card-content>
+                  
+                  <!-- <img class="banks" src="../../../assets/img/banks.png" alt=""> -->
+                    <div class="col p-5 d-flex justify-content-center">
+                    <img class="wallet" src="assets/icon/wallet_icon.png">
+                    </div>
+                    <h4 class="text-center fint-weight-bold"> AVAILABLE BALANCE : ₦  
+                      {{accountService.accountBalance | number}} </h4>
+                    <!-- <ion-button color="success">DEBIT CARD</ion-button> -->
+                     <ion-item class="text-left">
+                       <ion-label class="text-center" position="floating">enter amount here</ion-label>
+                       <ion-input #amount name="amount" [(ngModel)]="model.amount"></ion-input>
+                     </ion-item>
+                    <!-- pay stack -->
+                    <ion-button color="success" (click)="payNow()"
+                    angular4-paystack
+                    [key]="'pk_live_bca75894ac696e19c47f7643e3d5de44b4a711e3'"
+                    [email]="'swagasoft@gmail.com'"
+                    [amount]="amountInput"
+                    [ref]="reference"
+                    [channels]="['card']"
+                    [class]="'btn btn-primary'"
+                    (close)="paymentCancel()"
+                    (callback)="paymentDone($event)"
+                  >
+                    PAY WITH ATM CARD
+                    </ion-button>
+                    <br>
+                    <ion-button color="success" (click)="payNow()"
+                    angular4-paystack
+                    [key]="'pk_live_bca75894ac696e19c47f7643e3d5de44b4a711e3'"
+                    [email]="'swagasoft@gmail.com'"
+                    [amount]="amountInput"
+                    [ref]="reference"
+                    [channels]="['bank']"
+                    [class]="'btn btn-primary'"
+                    (close)="paymentCancel()"
+                    (callback)="paymentDone($event)"
+                  >
+                    BANK TRANSFER
+                    </ion-button>
+                    <!--end of  pay stack -->
+
+
+                </ion-card-content>
+            
+            </ion-card>
+        </div>
+       
+    
+    <div>
+        <ion-card class="text-center">
+            <ion-card-header color="success" class="font-weight-bold text-white "> ACCOUNT</ion-card-header>
+            <ion-card-content>
+                <div class="col p-5 d-flex justify-content-center">
+                <img class="wallet" src="assets/icon/profile_icon.png">
+                </div>
+                <h4 color="success" class="text-center fint-weight-bold"> UPDATE YOUR INFORMATION</h4>
+                <ion-button color="success" (click)="profileSection()" >UPDATE</ion-button>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+  </div>
+
+  
+    </ion-content>
+    

@@ -1,0 +1,143 @@
+<ion-header>
+    <ion-toolbar>
+      
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      
+      <div class="row d-flex justify-content-center">
+        <img class="rounded-top"  src="../../../assets/icon/Logoicon.png">
+        </div>
+    </ion-toolbar> 
+  </ion-header>
+
+<ion-content>
+  <div  class="play-area content">
+
+  
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab-button color="success">
+         <ion-row>
+           <h5 class="mt-2 p-3 font-weight-bold">{{timeMinute}} : {{timeSeconds}} </h5>
+         </ion-row>
+        </ion-fab-button>
+      </ion-fab>
+
+  
+      <!-- *ngFor="let item of accountService.leaderboard$; index as i" -->
+         <div >
+            <ion-card class="play-area-header"  *ngIf="!loadingGame" >
+                <ion-card-title class="play-area-header">
+                   <small>THERE’S STILL A PLACE FOR YOU</small>
+                  </ion-card-title>
+                  <ion-card-content>
+                    <ion-row>
+                      <ion-col  *ngFor="let item of accountService.leaderboardGameSection$" >
+                          <ion-avatar>
+                              <img src="../../assets/img/leader_icon.png" alt="">
+                            </ion-avatar><p class="font-weight-bold">{{item.user}} </p><br>
+                             <p>{{item.minutes}}: {{item.seconds}} </p>
+                            
+                       </ion-col>
+                    </ion-row>
+          
+                  </ion-card-content>
+              </ion-card> 
+        </div>
+  
+   
+
+      <ion-item-divider class="" >
+          <ion-segment class="">
+              <ion-label class="font-weight-bold text-success"> CORRECT : {{correctAns}}</ion-label>
+            </ion-segment>
+            <ion-segment class="" >
+              <ion-label class="font-weight-bold text-danger">WRONG : {{wrongAns}} </ion-label>
+            </ion-segment>
+      </ion-item-divider>
+
+
+      <!-- question section -->
+      <ion-card *ngIf="startGame" class="m-0 play-area" style="width: 100%;" >
+          <div class="justify-content-right d-flex ml-2 ">
+                     <h3 class=" font-weight-bold" id="count"> {{runningQuestion + 1}}/15 </h3>  <!-- Default Segment -->
+          
+          </div>
+           
+           <ion-card-title><p class="m-4">{{currentQuestion?.question}} </p></ion-card-title>
+           <ion-card-content class="text-left mb-5">
+          
+               <ion-list  expand="full"  class="option " 
+                (click)="checkAnswer(currentQuestion?.option1, currentQuestion?.answer);">
+                 A : {{currentQuestion?.option1}} </ion-list>
+             
+                 <ion-list  expand="full" class="option " 
+                  (click)="checkAnswer(currentQuestion?.option2, currentQuestion?.answer); ">
+                   B : {{currentQuestion?.option2}} </ion-list>
+             
+           
+                 <ion-list  expand="full"  class="option " 
+                 (click)="checkAnswer(currentQuestion?.option3, currentQuestion.answer); ">
+                  C : {{currentQuestion?.option3}} </ion-list>
+             
+              
+                 <ion-list  expand="full"  class="option "  
+                  (click)="checkAnswer(currentQuestion?.option4, currentQuestion.answer); ">
+                   D : {{currentQuestion?.option4}} </ion-list>
+             
+           </ion-card-content>
+           </ion-card>
+ 
+
+           <div *ngIf="!loadingGame" class="mt-5">
+              <ion-button expand="block"  size="large" color="success"  *ngIf="!startGame" (click)="startQuestion()">
+                  PLAY NOW !</ion-button>
+           </div>
+
+               <div  *ngIf="gameOver" class="mt-5">
+                  <h6 id="correct"> CORRECT QUESTIONS = {{correctAns}} </h6>
+                  <h6 id="wrong"> WRONG QUESTIONS = {{wrongAns}} </h6>
+                  <div class="justify-content-center d-flex mt-4">
+                      <!-- <img src="../../assets/animation/animated-firework.gif" alt="">  -->
+                      <br>
+                      <!-- <div class="text-center">
+                         <h4 id="nominated"> NOMINATED! </h4>
+                         <ion-icon size="large" color="warning" name="trophy"></ion-icon>
+                         </div> -->
+                  </div>
+                  <div class="d-flex row">
+                    <div class="col justify-content-left">
+                      <ion-button color="success" (click)="gameOverToleaderboard()"> LEADERBOARD</ion-button>
+                    </div>
+                    <div class=" col justify-content-right">
+                      <ion-button color="success" (click)="gameOverToRecords()">MY RECORD</ion-button>
+                    </div>
+
+                  </div> 
+               </div>
+ 
+     <br>
+          <!-- <div class="justify-content-center d-flex" *ngIf="!startGame">
+              <img src="../../assets/animation/animated-playgame.gif" alt="">
+          </div> -->
+
+          <div *ngIf="low_balance"  class=" ">
+              <div class="toast-container mb-5">
+                <ion-chip>
+                  <!-- <ion-icon name="hand" color="danger"></ion-icon> -->
+                  <ion-label class="font-weight-bold text-danger"> YOUR ACCOUNT IS LOW! CLICK HERE  </ion-label> <br>
+                  <ion-icon [routerLink]="['/account']"  size="large" name="wallet" color="success"></ion-icon>
+                </ion-chip>
+              </div>
+            </div>
+
+                       <!-- loader -->
+                <div *ngIf="loadingGame" class=" ">
+                  <div class="toast-container ">
+                      <div class="lds-roller"><div></div><div></div><div></div><div></div>
+                      <div></div><div></div><div></div><div></div></div>
+                  </div>
+                  <p class="bg-dark text-white text-center"> loading...</p>
+                </div>
+              </div>
+</ion-content> 
