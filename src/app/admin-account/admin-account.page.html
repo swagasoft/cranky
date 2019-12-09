@@ -24,7 +24,7 @@
 
 
     <br>
-    <h3 class="text-center text-success">CURRENT APP DATE:  {{gameService.applicationDate}} </h3>
+    <ion-badge class="text-center">{{gameService.applicationDate}} </ion-badge>
     
     <div style="background-color: darkgreen; border: 3px black;" class="p-5 ">
       <div *ngIf="loading">
@@ -39,9 +39,19 @@
          <ion-button type="submit"> <ion-icon name="checkmark" size="large"></ion-icon> </ion-button>
         </form>
 
+
+      <form #youtubeform name="youtubeform" (submit)="submityoutubeLink(youtubeform)">
+        <ion-item>
+            <ion-label  class="ml-3"  
+             position="floating">enter date in format</ion-label>
+          <ion-input #youtubeUrl name="youtubeUrl" [(ngModel)]="model.youtubeUrl" placeholder="https://....."></ion-input>
+         </ion-item>
+         <ion-button type="submit"> submit youtube link </ion-button>
+        </form>
+
          <!-- <p class="text-white text-center font-weight-bold">jan 5, 2019 06:00:00</p> -->
          <ion-button size="large" [disabled]="!setdate.value"
-          (click)="activateDate()">ACTIVATE DATE</ion-button>
+          (click)="activateDate()">ACTIVATE </ion-button>
     </div>
 
     <div *ngIf="loading">

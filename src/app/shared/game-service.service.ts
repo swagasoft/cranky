@@ -18,6 +18,7 @@ export class GameServiceService  {
   arrayLengthTips : any;
   gameTipArray: Observable<any>;
   public applicationDate: any;
+  public youtubeLink: any;
 
   
   noAuthHeader = {headers: new HttpHeaders({NoAuth: 'True'})};
@@ -35,7 +36,6 @@ export class GameServiceService  {
    // timer
    gameTimer() {
      let appDATE = this.applicationDate;
-     console.log('DATABASE TIME',appDATE);
      let deadline = new Date(appDATE).getTime();
     
      let x = setInterval(()=> {
@@ -65,24 +65,37 @@ export class GameServiceService  {
     this.http.get(environment.apiBaseUrl + '/game-fun-fact-tips').subscribe((tips)=> {
       this.gameTipArray = tips['gamestips'];
       this.arrayLengthTips = tips['gamestips'].length;
-      console.log(this.arrayLengthTips);
-      console.log(this.gameTipArray);
     });
-   
   }
 
 
   setAdminDate(date) {
     return this.http.get(environment.apiBaseUrl + `/submit-admin-date${date}`);
   }
+
+  setYoutubeDate(link) {
+    return this.http.post(environment.apiBaseUrl + `/submit-youtube-link`, link);
+  }
   getAdminDate() {
     return this.http.get(environment.apiBaseUrl + '/get-admin-date').subscribe(
       res=>{
         this.applicationDate = res['doc']['appdate'];
-        console.log('start time');
         setTimeout(()=> {
           this.gameTimer();
         },2000);
+      }
+    );
+  }
+
+  getYoutubeLink(){
+    return this.http.get(environment.apiBaseUrl + '/get-youtube-link').subscribe(
+      res => {
+        this.youtubeLink = res['doc']['link'];
+        console.log(this.youtubeLink);
+
+      },
+      err => {
+        console.log(err);
       }
     );
   }

@@ -17,7 +17,8 @@ export class AdminAccountPage implements OnInit {
 
  model= {
    activate: '',
-   date:''
+   date:'',
+   youtubeUrl:''
  }
 
   ngOnInit() {
@@ -36,22 +37,35 @@ export class AdminAccountPage implements OnInit {
 
   activateDate(){
     let adminDate = this.model.date;
-    console.log('activate date', adminDate);
-this.loading = true;
+    this.loading = true;
     
     this.gameService.setAdminDate(adminDate).subscribe(
       res => {
         this.loading = false;
-        console.log(res);
         this.gameService.getAdminDate();
         window.location.reload();
       },
       err => {
         this.loading = false;
-        console.log(err);
       }
     );
 
+  }
+
+  submityoutubeLink(link){
+    this.loading = true;
+    let body = {"link" : this.model.youtubeUrl};
+    console.log(body);
+    this.gameService.setYoutubeDate(body).subscribe(
+        res => {
+          this.loading = false;
+          console.log(res);
+        },
+        err => {
+          this.loading = false;
+          console.log(err);
+        }
+      );
   }
 
 

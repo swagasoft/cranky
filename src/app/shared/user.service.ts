@@ -87,7 +87,7 @@ constructor(private http: HttpClient,
     }
   
     upDateQuestion(question){
-      return this.http.get(environment.apiBaseUrl + `/update-question`)
+      return this.http.post(environment.apiBaseUrl + `/update-question`, question);
     }
     deleteQuestion(id){
       console.log(id);

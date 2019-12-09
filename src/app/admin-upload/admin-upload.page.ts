@@ -87,7 +87,7 @@ export class AdminUploadPage implements OnInit {
           text: 'Retry',
           handler: () => {
             console.log('Confirm Okay');
-          }
+          } 
         }
       ]
     });

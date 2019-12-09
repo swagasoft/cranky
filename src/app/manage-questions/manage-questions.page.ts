@@ -23,6 +23,7 @@ export class ManageQuestionsPage implements OnInit {
               private router: Router) { }
 
               questionModel = {
+                id: '',
                 question: '',
                 option1: '',
                 category: '',
@@ -145,12 +146,21 @@ export class ManageQuestionsPage implements OnInit {
             this.showContent = false;
             this.showForm = true;
             this.loading = true;
-            console.log('edit question', id);
             this.userService.getSingleQuestion(id).subscribe(
               res => {
                 this.loading = false;
                 this.questionToEdit = res['doc'];
                 console.log(this.questionToEdit);
+                this.questionModel.question = this.questionToEdit.question;
+                this.questionModel.category = this.questionToEdit.category;
+                this.questionModel.answer = this.questionToEdit.answer;
+                this.questionModel.option1 = this.questionToEdit.option1;
+                this.questionModel.option2 = this.questionToEdit.option2;
+                this.questionModel.option3 = this.questionToEdit.option3;
+                this.questionModel.option4 = this.questionToEdit.option4;
+                this.questionModel.tip = this.questionToEdit.tip;
+                this.questionModel.id = this.questionToEdit._id;
+                console.log(this.questionModel);
         
               },
               err => {
@@ -162,8 +172,19 @@ export class ManageQuestionsPage implements OnInit {
 
           
   updateQuestion(form: NgForm, id){
-    this.showForm = false;
-    this.showContent = true;
+  
+    console.log(this.questionModel.id);
+    this.userService.upDateQuestion(this.questionModel).subscribe(
+      response => {
+        this.showForm = false;
+        this.showContent = true; 
+        console.log(response);
+        this.findByCategory(this.questionModel.category);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 

@@ -23,25 +23,25 @@
               <ion-row>
                   <div> 
                       <span class="days" id="day">{{gameService.timeDays }} </span> 
-                      <div class="smalltext">Days</div> 
+                      <div class="smalltext">DAY</div> 
                     </div>
               </ion-row>
                  <ion-row>
                     <div> 
                         <span class="hours" id="hour">{{gameService.timeHours}} </span> 
-                        <div class="smalltext">Hours</div> 
+                        <div class="smalltext">HR</div> 
                       </div>
                  </ion-row>
                     <ion-row>
                         <div> 
                             <span class="minutes" id="minute">{{gameService.timeMinute}} </span> 
-                            <div class="smalltext">Minutes</div> 
+                            <div class="smalltext">MIN</div> 
                           </div>
                     </ion-row> 
                      <ion-row>
                         <div> 
                             <span class="seconds" id="second">{{gameService.timeSeconds}} </span> 
-                            <div class="smalltext">Seconds</div> 
+                            <div class="smalltext">SEC</div> 
                           </div> 
                      </ion-row>
           </ion-row>
@@ -58,8 +58,9 @@
       </ion-card> -->
 
       <ion-card *ngIf="gameService.gameNotLive" class="m-0 d-flex justify-content-center">
-        <iframe class="m-0" width="100%" height="100%"
-          src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe> 
+        <iframe class="m-0 " width="640" height="360"
+          [src]='showVideo()'
+          webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
       </ion-card>
   </div>
 

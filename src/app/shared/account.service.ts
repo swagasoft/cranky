@@ -25,11 +25,11 @@ export class AccountService {
      }
 
     loadMyBalance() {
-      console.log('GETTING BALANCE');
+      // console.log('GETTING BALANCE');
       this.getLeaderGameSection();
       this.appUser = localStorage.getItem('appUser');
       this.http.get(environment.apiBaseUrl + '/get-account-balance').subscribe((value)=> {
-        console.log(value);
+        // console.log(value);
 
         this.accountBalance = value['balance'];
         this.getLeaderboard();
@@ -42,7 +42,6 @@ export class AccountService {
       this.getLeaderGameSection();
     this.http.get(environment.apiBaseUrl + '/get-leaderboard').subscribe((value)=> {
       this.leaderboard$ = value['document'];
-      console.log(this.leaderboard$);
     });
     }
 
@@ -50,7 +49,6 @@ export class AccountService {
     this.http.get(environment.apiBaseUrl + '/get-leaderboard-game-section').subscribe((value)=> {
       this.leaderboardGameSection$ = value['document'];
 
-      console.log(this.leaderboardGameSection$);
     });
     }
    

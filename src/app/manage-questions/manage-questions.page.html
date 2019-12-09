@@ -29,7 +29,7 @@
     <ion-card>
  
       <!-- select filter -->
-      <ion-item>
+      <ion-item *ngIf="showContent">
         <ion-label>Filter</ion-label>
         <ion-select interface="popover" (ngModelChange)="selectChange($event)" [(ngModel)]="model.filterOptions">
           <ion-select-option value="economics">Economics</ion-select-option>

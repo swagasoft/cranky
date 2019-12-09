@@ -4,6 +4,7 @@ import { UserService } from '../shared/user.service';
 import { AlertController, ToastController, MenuController, IonSlides } from '@ionic/angular';
 import { AccountService } from '../shared/account.service';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-gamesection',
@@ -14,6 +15,7 @@ export class GamesectionPage implements OnInit {
   @ViewChild('mySlider', {static : false}) mySlider: IonSlides;
   appUser: any;
   low_balance :boolean = false;
+  youtubeVideo: any;
 
   constructor(public gameService: GameServiceService,
               public userService: UserService,
@@ -21,96 +23,31 @@ export class GamesectionPage implements OnInit {
               public toastController: ToastController,
               public accountService: AccountService,
               public menu: MenuController,
+              protected sanitizer: DomSanitizer,
               private router: Router) {
-          // this.gameService.gameTimer();
+          gameService.getYoutubeLink();
           this.loadBalance();
+          gameService.getAdminDate();
      }
 
 
 
   ngOnInit() {
     this.appUser = localStorage.getItem('appUser');
+    this.youtubeVideo = this.gameService.youtubeLink;
 
-       let xInt = setInterval(() => {
-        this.mySlider.slideNext();
-        }, 9000); 
 
   }
 
-
-  async presentFailNetwork() {
-    const toast = await this.toastController.create({
-      message: 'No internet connection!!!',
-    });
-    toast.present();
+  showVideo(){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.gameService.youtubeLink);
   }
 
   goToRecoreds(){
     this.router.navigate(['gamerecord']);
   }
 
-  
-  startGame() {
-    if (this.gameService.gameLive) {
-      this.presentAlertConfirm();
-    } else {
-      console.log('not yet time!');
-    }
-  }
-
-  async presentAlertConfirm() {
-    const alert = await this.alertController.create({
-      header: `CONTINUE TO GAME ?`,
-      message: `<strong class="text-dark text-center"> You are about to start
-       a game that will last <br> <h2 class="text-dark text-center"> 4 minutes</h2></strong>`,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('cancle game');
-          }
-        }, {
-          text: 'Yes',
-          cssClass: 'success',
-          handler: () => {
-            
-            this.accountService.loadBalanceForCalculation().subscribe(
-              res => {
-                let UserBalance = res['balance'];
-                if (UserBalance < 200){
-                  this.low_balance = true;
-                  setTimeout(()=> {
-                    this.low_balance = false;
-                  }, 6000);
-                }else{
-
-                  this.accountService.deductGameAmountFromAccount().subscribe(
-                    res => {
-                      this.accountService.loadMyBalance();
-                      
-                      this.router.navigate(['/playsection']);
-
-                    },
-                    error => {
-                      console.log('ERROR');
-                    }
-                  );
-                }
-              }
-            );
-            
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
   loadBalance() {
-    console.log('loading balance');
     this.accountService.loadMyBalance();
   } 
 

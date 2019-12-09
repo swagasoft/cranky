@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-// apiBaseUrl:  'http://localhost:8000/api'
-apiBaseUrl: ' https://i-sabi.herokuapp.com/api'
+apiBaseUrl:  'http://localhost:8000/api'
+// apiBaseUrl: ' https://i-sabi.herokuapp.com/api'
 };
 
 // apiBaseUrl: ' https://i-sabi.herokuapp.com/api'

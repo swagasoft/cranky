@@ -44,7 +44,6 @@ export class PlaysectionPage implements OnInit {
 
 
   ngOnInit() {
-    console.log(this.gameOver)
 
   }
 
@@ -55,7 +54,6 @@ export class PlaysectionPage implements OnInit {
         this.gameQuestions = res['questions'];
         this.lastQuestion =  this.gameQuestions.length -1;
         this.loadingGame = false
-        console.log(this.gameQuestions);
       },
       err => {
         console.log(err);
@@ -77,13 +75,10 @@ export class PlaysectionPage implements OnInit {
     let wrong_qst = this.wrongAns;
     
     const record = {minutes , seconds, correct_qst, wrong_qst};
-    console.log( minutes, seconds);
     this.userService.postQuestionRecord(record).subscribe(
         res => {
-          this.loadingGame = true;
-          console.log('RESPONSE');
+          this.loadingGame = false;
           setTimeout(()=> {
-            this.loadingGame = false;
             this.gameOver = undefined;
             this.startGame = undefined; 
             this.correctAns = 0;
@@ -158,8 +153,7 @@ export class PlaysectionPage implements OnInit {
     }else{
       this.startGame = false;
       this.gameisOver();
-      console.log('no more questionsssss');
-    
+      // no more question!
     }
   }
   
@@ -167,7 +161,6 @@ export class PlaysectionPage implements OnInit {
   renderProgress() {
     for(let qIndex = 0; qIndex <= this.lastQuestion; qIndex++ ) {
       this.progress = qIndex;
-      console.log('progress', this.progress);
     } 
   }
 
@@ -192,10 +185,8 @@ export class PlaysectionPage implements OnInit {
        secs -= mins * 60;
        this.timeMinute = mins;
        this.timeSeconds = secs;
-       console.log(secs);
 
        if(this.gameOver){
-        console.warn('i have to clear the interval...');
         clearInterval(ticker);
        }else{
          console.warn('not yet time...');
