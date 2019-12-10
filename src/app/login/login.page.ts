@@ -4,6 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../shared/user.service';
 import { AccountService } from '../shared/account.service';
+// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { Facebook } from '@ionic-native/facebook/ngx';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +23,7 @@ export class LoginPage implements OnInit {
               private fb: FormBuilder,
               public alertController: AlertController,
               public toastController: ToastController,
+              public facebook : Facebook,
               private router: Router, public userService: UserService) { 
     }
 
@@ -66,9 +69,6 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/register']);
   }
 
-  facebook(){
-    console.log('facebook login clicked');
-  }
 
   async presentAlertConfirm(msg) {
     const alert = await this.alertController.create({
@@ -111,8 +111,9 @@ export class LoginPage implements OnInit {
   }
 
   facebookLogin(){
-    let message = "currently not avalible!";
-    this.loginToast(message);
+   this.facebook.api("/me?fields=name,username,phone,gender,birthday,email", []).then((user)=> {
+     console.log(user);
+   });
   }
 
 }

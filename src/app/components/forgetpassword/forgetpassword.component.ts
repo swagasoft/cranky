@@ -77,9 +77,10 @@ export class ForgetpasswordComponent implements OnInit {
     let recipient = code+numberString;
     let messageText = `Use the folowing OTP to reset your password${this.otpFromServer}`;
   
-    this.http.get(`http://api.ebulksms.com:8080/sendsms?${smsEmail}=&apikey=${smsApi}&sender=${smSsender}&${messageText}&flash=0&recipients=${recipient}`
+    this.http.get(`http://api.ebulksms.com:8080/sendsms?${smsEmail}=&apikey=${smsApi}&sender=${smSsender}&${messageText}&flash=0&recipients=${recipient}`,
+    {headers : {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}}
   ).subscribe(
-    res => {
+    res => { 
       console.log(res);
     },
     err => {

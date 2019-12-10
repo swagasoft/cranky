@@ -4,7 +4,8 @@ import { AccountComponent } from './components/account/account.component';
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { WebView } from '@ionic-native/ionic-webview/ngx';
+// import { Facebook , FacebookOriginal} from '@ionic-native/facebook';
+import { Facebook } from '@ionic-native/facebook/ngx';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -44,6 +45,7 @@ import { GamePipe } from './game.pipe';
   providers: [{provide: HTTP_INTERCEPTORS,
      useClass: AuthInterceptor, multi: true},
     StatusBar,
+  
     SplashScreen,
     StatusBar,
     UserService,
@@ -52,8 +54,9 @@ import { GamePipe } from './game.pipe';
     Angular4PaystackModule,
     SplashScreen,
     AuthguardGuard,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    UserService, AccountService,AdminGuard, AuthguardGuard, GameServiceService
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
+    UserService, AccountService,AdminGuard,  Facebook,
+     AuthguardGuard, GameServiceService
   ],
   bootstrap: [AppComponent]
 })

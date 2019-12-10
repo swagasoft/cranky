@@ -150,7 +150,6 @@ export class ManageQuestionsPage implements OnInit {
               res => {
                 this.loading = false;
                 this.questionToEdit = res['doc'];
-                console.log(this.questionToEdit);
                 this.questionModel.question = this.questionToEdit.question;
                 this.questionModel.category = this.questionToEdit.category;
                 this.questionModel.answer = this.questionToEdit.answer;
@@ -160,7 +159,6 @@ export class ManageQuestionsPage implements OnInit {
                 this.questionModel.option4 = this.questionToEdit.option4;
                 this.questionModel.tip = this.questionToEdit.tip;
                 this.questionModel.id = this.questionToEdit._id;
-                console.log(this.questionModel);
         
               },
               err => {
