@@ -15,6 +15,7 @@ export class AccountService {
   leaderboard$: Observable <any>;
   leaderboardGameSection$: Observable <any>;
   appUsername: any;
+  public user_id: string;
 
 
   noAuthHeader = {headers: new HttpHeaders({NoAuth: 'True'})};
@@ -33,6 +34,7 @@ export class AccountService {
 
         this.accountBalance = value['balance'];
         this.getLeaderboard();
+        this.user_id = localStorage.getItem('user_id');
         this.appUsername = localStorage.getItem('appUser');
 
       });
@@ -60,6 +62,18 @@ export class AccountService {
 
     deductGameAmountFromAccount(){
       return this.http.get(environment.apiBaseUrl + '/deduct-game-amount');
+    }
+
+    myTransaction(){
+      return this.http.get(environment.apiBaseUrl + '/get-my-transaction');
+    }
+
+    getManualTransactions(){
+      return this.http.get(environment.apiBaseUrl + '/get-manual-transactions');
+    }
+
+    confirmTransaction(accountId){
+      return this.http.get(environment.apiBaseUrl + `/confirm-transaction${accountId}`);
     }
 
  

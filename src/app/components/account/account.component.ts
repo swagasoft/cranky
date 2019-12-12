@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/user.service';
 import { AccountService } from 'src/app/shared/account.service';
+import { ModalController, AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-account',
@@ -14,11 +15,17 @@ export class AccountComponent implements OnInit {
   appUsername: any;
   amountInput: any;
   exactAmount: any;
+  @Input() firstName: string;
+  @Input() lastName: string;
+  @Input() middleInitial: string;
 
 
   constructor(private router: Router, public userService: UserService,
               public accountService: AccountService,
-             ) {   
+              public alertController: AlertController,
+              public toastController: ToastController,
+               public modalController: ModalController
+             ) {   this.accountService.loadMyBalance();
 
 }
 
@@ -83,6 +90,64 @@ paymentDone(process: any) {
   this.amountInput = paymentAmount;
   console.log(this.exactAmount);
   console.log(this.amountInput);
+}
+
+mobileTransfer(){
+  console.log(this.model.amount.valueOf());
+  this.showAlert();
+
+
+}
+
+async showAlert() {
+  const alert = await this.alertController.create({
+    header: 'MOBILE TRANSFER',
+    message: `After a successful transfer click OKAY.
+             <p><h6 class=" font-weight-bold">Account Number: 3585745013</h6></p>
+             <p><h6  class="font-weight-bold">Bank : FCMB </h6></p>
+             <p><h6  class=" fiont-weight-bold">Account Name : Ayaweisoft </h6></p>
+             <p> <h4 class=" fiont-weight-bold"> Amount : ₦ ${this.model.amount}</h4></p>`,
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('mobile transfer cancle');
+          this.generateRef();
+        }
+      }, {
+        text: 'Okay',
+        handler: () => {
+         
+          let process = { username : this.appUsername , amount: this.model.amount, status : 'processing',
+          trxref: this.reference, account_id: this.accountService.user_id, transaction : ' manual transfer'};
+          process.username = this.appUsername;
+          console.log('Confirm Okay', process);
+          this.userService.postTransaction(process).subscribe(
+            res => {
+              console.log(res);
+              this.presentSucess();
+            },
+            err => {
+              console.log(err);
+            }
+          )
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+async presentSucess() {
+  const toast = await this.toastController.create({
+    message: 'Your account will be updated shortly.',
+    position: 'middle',
+    duration: 4000
+  });
+  toast.present();
 }
 
 

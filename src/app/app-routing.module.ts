@@ -34,6 +34,8 @@ const routes: Routes = [
    loadChildren: './myrecord/myrecord.module#MyrecordPageModule' , canActivate:[AuthguardGuard]},
   { path: 'playsection',
    loadChildren: './playsection/playsection.module#PlaysectionPageModule',canActivate:[AuthguardGuard] },
+   { path: 'transaction', loadChildren: './transaction/transaction.module#TransactionPageModule',
+   canActivate:[AuthguardGuard] },
  
 
   //  admin routes
@@ -52,6 +54,11 @@ const routes: Routes = [
   { path: 'admin-account',
    loadChildren: './admin-account/admin-account.module#AdminAccountPageModule',
     canActivate:[AuthguardGuard, AdminGuard] },
+  { path: 'adminquery', loadChildren: './adminquery/adminquery.module#AdminqueryPageModule',
+  canActivate:[AuthguardGuard, AdminGuard] },
+  { path: 'admintransfer', loadChildren: './admintransfer/admintransfer.module#AdmintransferPageModule',
+  canActivate:[AuthguardGuard, AdminGuard] },
+ 
 ];
 
 @NgModule({

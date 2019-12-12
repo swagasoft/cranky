@@ -21,13 +21,14 @@ export class ForgetpasswordComponent implements OnInit {
   userOtpInput: any = 0;
   loading: boolean = false;
 
-  noAuthHeader = {headers: new HttpHeaders({NoAuth: 'True'})};
-  AuthHeader = {headers: new HttpHeaders().set('Authorization',
-  `Bearer ${localStorage.getItem('token')}`)};
-  
+  // noAuthHeader = headers: new HttpHeaders({NoAuth: 'True'});
+
+
+   header = new HttpHeaders().set('Content-Type', 'application/json')
+  .set('Access-Control-Allow-Origin','*');
  
   constructor(private accountService: AccountService,
-                    private http: HttpClient,
+              private http: HttpClient,
               private userService: UserService) { 
 
 
@@ -39,7 +40,9 @@ export class ForgetpasswordComponent implements OnInit {
     number:''
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
 
   submitNumber(form: NgForm) {
@@ -71,15 +74,18 @@ export class ForgetpasswordComponent implements OnInit {
   sentOTPtoUser(){
     const smsEmail = 'ayaweisoft@gmail.com';
     const smsApi = '320bf56fb1683682fef15e4285d52b7861c293ba';
-    const smSsender = 'I-SABI RESET PASSWORD'; 
+    const smSsender = 'I-SABI'; 
     let numberString = this.model.number.toString();
     let code ='234'; 
     let recipient = code+numberString;
     let messageText = `Use the folowing OTP to reset your password${this.otpFromServer}`;
   
-    this.http.get(`http://api.ebulksms.com:8080/sendsms?${smsEmail}=&apikey=${smsApi}&sender=${smSsender}&${messageText}&flash=0&recipients=${recipient}`,
-    {headers : {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}}
-  ).subscribe(
+    // tslint:disable-next-line: max-line-length
+    this.http.get(`http://api.ebulksms.com:8080/sendsms?${smsEmail}=&apikey=${smsApi}&sender=${smSsender}&${messageText}&flash=0&recipients=${recipient}`
+  ,{headers: new HttpHeaders({
+    "Content-Type":  "application/json","Access-Control-Allow-Origin":"*"
+  })
+}).subscribe(
     res => { 
       console.log(res);
     },

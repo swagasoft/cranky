@@ -1,0 +1,30 @@
+
+ <ion-header>
+    <ion-toolbar>
+      <ion-img class="rounded-top"  src="../../assets/icon/Logoicon.png"></ion-img>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+<div class="content">
+
+    <form class="mt-5 form" #loginForm 
+    ngform="loginForm" name="form"  (submit)="queryUser()">
+    <h1  class="text-center font-weight-bold text-white mb-4">Search User</h1>
+    <div *ngIf="loading"><ion-progress-bar type="indeterminate"></ion-progress-bar></div>
+     <ion-item  class="text-input mb-2">
+         <ion-label class="ml-3" position="floating">User ID</ion-label>
+         <ion-input class="ml-3 text-white" type="text" #user_id name="user_id" clearInput [(ngModel)]="model.query"
+           required="true"  ></ion-input>
+     </ion-item>
+   
+   
+   <div class="justify-content-center row pt-2">
+       <ion-button size="small" [disabled]="!user_id.value"  type="submit" color="light" (submit)="queryUser()"
+       > QUERY </ion-button>
+   </div>
+
+
+   </form>
+  </div>
+</ion-content>

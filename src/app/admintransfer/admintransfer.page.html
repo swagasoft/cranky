@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-img class="rounded-top"  src="../../assets/icon/Logoicon.png"></ion-img>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <div class="content">
+      <!-- loader -->
+      <div *ngIf="loading" class=" ">
+          <div class="toast-container ">
+              <div class="lds-roller"><div></div><div></div><div></div><div></div>
+              <div></div><div></div><div></div><div></div></div>
+          </div>
+        </div>
+
+        <ion-card class="card" *ngFor="let item of manualTransfer">
+          <ion-header><h1 class="text-center text-white"> ₦ {{item.amount}} </h1> </ion-header>
+          <ion-list>
+            <h6>{{item.username}} </h6>
+            <h6>{{item.status}} </h6>
+            <h6>{{item.account_id}} </h6>
+            <h6>{{item.date | date:'full'}} </h6>
+            <ion-button color="success"(click)="confirmUser(item._id)" > CONFIRM</ion-button>
+
+          </ion-list>
+        </ion-card>
+
+  </div>
+</ion-content>

@@ -55,7 +55,7 @@ constructor(private http: HttpClient,
     }
   
     postQuestion(question){
-      return this.http.get(environment.apiBaseUrl + `/post-question${question}`);
+      return this.http.post(environment.apiBaseUrl + `/post-question`, question);
     }
   
     getAllQuestions(){

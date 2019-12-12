@@ -58,16 +58,16 @@
       </ion-card> -->
 
       <ion-card *ngIf="gameService.gameNotLive" class="m-0 d-flex justify-content-center">
-        <iframe class="m-0 " width="640" height="360"
+        <iframe class="m-0 " width="100%" height="75%"
           [src]='showVideo()'
-          webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
+         ></iframe> 
       </ion-card>
   </div>
 
     <div class="game-tip" *ngIf="gameService.gameNotLive">
         <ion-card style="background-color: e0eebb;"  class="m-0 "  rows="6" cols="20">
           <ion-card-header class="text-center  green darken-4 text-white">GAME TIPS& FUN FACTS</ion-card-header>
-          <ion-card-content class="p-5" >
+          <ion-card-content class=" " >
            <ion-slides #mySlider>
              <ion-slide  *ngFor="let item of gameService?.gameTipArray">
                <ion-card>

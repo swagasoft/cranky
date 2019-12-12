@@ -36,7 +36,7 @@
         <div class="d-flex">
           
           <ion-list-header class="font-weight-bold  justify-content-left"> {{i + 1}} </ion-list-header>
-          <p class="font-weight-bold justify-content-left"> {{item.Date | date }}</p>
+          <p class="font-weight-bold justify-content-left"> {{item.Date | date:'shortDate' }},{{item.Date | date: 'mediumTime'}}</p>
           <ion-row>
             <ion-icon (click)="deleteRecord(item._id)" class="justify-content-right" size="large" color="danger" name="trash"></ion-icon>
 

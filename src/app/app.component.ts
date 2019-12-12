@@ -47,6 +47,11 @@ export class AppComponent {
       url: '/myrecord',
       icon: 'list-box'
     },
+    {
+      title: 'TRANSACTION',
+      url: '/transaction',
+      icon: 'card'
+    },
   ];
 
   constructor(

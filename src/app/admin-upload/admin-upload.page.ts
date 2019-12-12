@@ -43,15 +43,16 @@ export class AdminUploadPage implements OnInit {
  
   submit(form: NgForm){
     this.loading = true;
-      console.log(form.value);
-      this.questionModel.question = form.value.question;
-      this.questionModel.answer = form.value.answer;
-      this.questionModel.option1 = form.value.option1;
-      this.questionModel.option2 = form.value.option2;
-      this.questionModel.option3 = form.value.option3;
-      this.questionModel.option4 = form.value.option4;
-      this.questionModel.tip = form.value.tip;
-      this.userService.postQuestion(this.questionModel).subscribe(
+    console.log(form.value);
+    console.log(this.questionModel);
+    this.questionModel.question = form.value.question;
+    this.questionModel.answer = form.value.answer;
+    this.questionModel.option1 = form.value.option1;
+    this.questionModel.option2 = form.value.option2;
+    this.questionModel.option3 = form.value.option3;
+    this.questionModel.option4 = form.value.option4;
+    this.questionModel.tip = form.value.tip;
+    this.userService.postQuestion(this.questionModel).subscribe(
         response => {
           this.loading = false;
           console.log(response);
@@ -61,7 +62,6 @@ export class AdminUploadPage implements OnInit {
         err => {
           this.loading = false;
           console.log(err);
-          console.log(err.error.message);
           this.presentFail(err.error.message);
         }
       );

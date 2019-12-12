@@ -50,6 +50,8 @@ export class LoginPage implements OnInit {
     this.userService.login(this.model).subscribe(response => {
       this.userService.setToken(response['token']);
       this.userService.loadBalance();
+      console.log(response);
+      localStorage.setItem('user_id',response['doc']['user_id']);
       localStorage.setItem('appUser',response['doc']['username']);
       localStorage.setItem('user-role',response['doc']['role']);
       this.loading = false;

@@ -88,19 +88,12 @@ export class GameServiceService  {
   }
 
   getYoutubeLink(){
-    return this.http.get(environment.apiBaseUrl + '/get-youtube-link').subscribe(
-      res => {
-        this.youtubeLink = res['doc']['link'];
-        console.log(this.youtubeLink);
-
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    return this.http.get(environment.apiBaseUrl + '/get-youtube-link').toPromise().then((res)=> {
+       this.youtubeLink = res['doc']['link'];
+    });
   }
 
-      
+  // this.youtubeLink = res['doc']['link'];
 }
 
 

@@ -33,12 +33,13 @@
                     <div class="col p-5 d-flex justify-content-center">
                     <img class="wallet" src="assets/icon/wallet_icon.png">
                     </div>
-                    <h4 class="text-center fint-weight-bold"> AVAILABLE BALANCE : ₦  
+                    <h4 class="text-center mb-5 font-weight-bold"> AVAILABLE BALANCE : ₦  
                       {{accountService.accountBalance | number}} </h4>
                     <!-- <ion-button color="success">DEBIT CARD</ion-button> -->
-                     <ion-item class="text-left">
-                       <ion-label class="text-center" position="floating">enter amount here</ion-label>
-                       <ion-input #amount name="amount" [(ngModel)]="model.amount"></ion-input>
+                     <ion-item class="text-left"  style="background-color: green;"> 
+                        <!-- <i class="font-weight-bold"><h1>₦</h1></i> -->
+                       ‎<ion-input  class="  text-center font-weight-bold" placeholder=" Example : 2000"
+                        #amount name="amount" [(ngModel)]="model.amount"></ion-input>
                      </ion-item>
                     <!-- pay stack -->
                     <ion-button color="success" (click)="payNow()"
@@ -51,23 +52,36 @@
                     [class]="'btn btn-primary'"
                     (close)="paymentCancel()"
                     (callback)="paymentDone($event)"
-                  >
+                  > 
                     PAY WITH ATM CARD
                     </ion-button>
                     <br>
-                    <ion-button color="success" (click)="payNow()"
-                    angular4-paystack
-                    [key]="'pk_live_bca75894ac696e19c47f7643e3d5de44b4a711e3'"
-                    [email]="'ayaweisoft@gmal.com'"
-                    [amount]="amountInput"
-                    [ref]="reference"
-                    [channels]="['bank']"
-                    [class]="'btn btn-primary'"
-                    (close)="paymentCancel()"
-                    (callback)="paymentDone($event)"
-                  >
-                    BANK TRANSFER
-                    </ion-button>
+                    <div class="d-flex row">
+
+                      <div class="justify-content-left">
+                        
+                      <ion-button color="success" (click)="mobileTransfer()">
+                         MOBILE TRANSFER</ion-button>
+                      </div>
+
+                      <div class="justify-content-right">
+                          <ion-button color="success" (click)="payNow()"
+                          angular4-paystack
+                          [key]="'pk_live_bca75894ac696e19c47f7643e3d5de44b4a711e3'"
+                          [email]="'ayaweisoft@gmal.com'"
+                          [amount]="amountInput"
+                          [ref]="reference"
+                          [channels]="['bank']"
+                          [class]="'btn btn-primary'"
+                          (close)="paymentCancel()"
+                          (callback)="paymentDone($event)"
+                        >
+                          BANK TRANSFER
+                          </ion-button>
+                      </div>
+
+                    </div>
+                
                     <!--end of  pay stack -->
 
 
@@ -92,6 +106,6 @@
 
   </div>
 
-  
+  <div></div>
     </ion-content>
     

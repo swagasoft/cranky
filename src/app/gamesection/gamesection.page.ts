@@ -40,6 +40,7 @@ export class GamesectionPage implements OnInit {
   }
 
   showVideo(){
+    // return this.sanitizer.bypassSecurityTrustScript(this.gameService.youtubeLink);
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.gameService.youtubeLink);
   }
 
