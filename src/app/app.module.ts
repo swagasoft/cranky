@@ -6,6 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 // import { Facebook , FacebookOriginal} from '@ionic-native/facebook';
 import { Facebook } from '@ionic-native/facebook/ngx';
+import {AngularFireModule} from 'angularFire2';
+import {AngularFirestoreModule} from 'angularFire2/firestore';
+
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -25,6 +28,17 @@ import { AccountService } from './shared/account.service';
 import { GameServiceService } from './shared/game-service.service';
 import { AdminAccountComponent } from './admin-account/admin-account.component';
 import { GamePipe } from './game.pipe';
+import { from } from 'rxjs';
+
+const firebase = {
+  apiKey : "AIzaSyCkayajnRPdP1d_HsPOQxIq5sMNYZKLaTY ",
+  authDomain : "i-sabi-773b4.firebaseapp.com",
+  databaseUrl : "https://i-sabi-773b4.firebaseio.com",
+  projectId  : "i-sabi-773b4",
+  storageBucket : "i-sabi-773b4.appspot.com",
+  messagingSenderId : "76166240437"
+
+}
 
 @NgModule({
   declarations: [AppComponent, AdminAccountComponent,
@@ -38,7 +52,10 @@ import { GamePipe } from './game.pipe';
     Angular4PaystackModule,
     HttpClientModule,
     IonicModule.forRoot(),
+    AngularFireModule.initializeApp(firebase),
+    AngularFirestoreModule,
     AppRoutingModule,
+    
   ],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   

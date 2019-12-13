@@ -26,7 +26,8 @@
     <ion-card-header class="text-white"> {{item.date | date:'full'}} </ion-card-header>
     <ion-card-content>
       <ion-list class="text-dark">
-        <p class="font-weight-bold">₦{{item?.amount}} </p>
+        <p class="font-weight-bold" *ngIf="item.amount" >₦{{item?.amount}} </p>
+        <p class="font-weight-bold" *ngIf="item.mobile_amount"  >₦{{item?.mobile_amount}} </p>
         <p> status : {{item?.status}} </p>
         <p> tanx id{{item?.trax}} </p>
         <p> {{item?.ref}} </p>

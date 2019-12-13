@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/user.service';
 import { AccountService } from 'src/app/shared/account.service';
 import { ModalController, AlertController, ToastController } from '@ionic/angular';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-account',
@@ -124,7 +125,7 @@ async showAlert() {
           trxref: this.reference, account_id: this.accountService.user_id, transaction : ' manual transfer'};
           process.username = this.appUsername;
           console.log('Confirm Okay', process);
-          this.userService.postTransaction(process).subscribe(
+          this.userService.postManualTrans(process).subscribe(
             res => {
               console.log(res);
               this.presentSucess();
@@ -147,8 +148,36 @@ async presentSucess() {
     position: 'middle',
     duration: 4000
   });
-  toast.present();
+  toast.present(); 
 }
 
+async presentAmountInput() {
+  const alert = await this.alertController.create({
+    header: 'ENTER AMOUNT',
+    inputs: [ {
+        name: 'amount',
+        type: 'text',
+        placeholder: 'example 2000'
+      }],
+    buttons: [ {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'Okay',
+        handler: (value) => {
+          console.log('Confirm Okay', value);
+          this.model.amount = value.amount;
+          this.payNow();
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
 
 } 

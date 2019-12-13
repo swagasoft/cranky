@@ -10,10 +10,12 @@ export class TransactionPage implements OnInit {
 loading: boolean = true;
 transaction: any;
 
-  constructor(private accountService : AccountService) { }
+  constructor(private accountService : AccountService) {
+    this.getTransaction();
+   }
  
   ngOnInit() {
-this.getTransaction();
+
   }
 
 
@@ -23,6 +25,7 @@ this.getTransaction();
       res => {
         this.loading = false;
         this.transaction = res['transaction'];
+        console.log(this.transaction);
       },
       err => {
         this.loading = false;

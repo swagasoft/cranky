@@ -96,6 +96,11 @@ constructor(private http: HttpClient,
     postTransaction(tranx){
       return this.http.post(environment.apiBaseUrl + `/submit-transaction`, tranx);
     }
+
+    postManualTrans(tranx){
+      return this.http.post(environment.apiBaseUrl + `/submit-manual-transaction`, tranx);
+    }
+
     loadBalance(){
       this.accountService.getLeaderGameSection();
       return this.http.get(environment.apiBaseUrl + '/load-balance');
