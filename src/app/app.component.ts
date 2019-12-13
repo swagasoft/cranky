@@ -64,6 +64,10 @@ export class AppComponent {
     this.initializeApp();
   }
 
+  releadBalance(){
+    this.accountService.loadMyBalance();
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();

@@ -3,6 +3,7 @@ import { AccountService } from './../../shared/account.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-forgetpassword',
@@ -29,6 +30,7 @@ export class ForgetpasswordComponent implements OnInit {
  
   constructor(private accountService: AccountService,
               private http: HttpClient,
+              public toastController: ToastController,
               private userService: UserService) { 
 
 
@@ -54,16 +56,26 @@ export class ForgetpasswordComponent implements OnInit {
         this.otpFromServer = res['otp'];
         console.log(this.otpFromServer);
         this.showNumberForm = false;
-        this.sentOTPtoUser();
         this.showOTPInput = true;
       },
       err => {
         this.loading = false; 
+        this.noUserFound();
         console.log(err.error);
       }
     );
- 
   }
+
+  async noUserFound() {
+    const toast = await this.toastController.create({
+      message: `User with 0${this.model.number} not found`,
+      position : 'middle',
+      duration: 3000
+    });
+    toast.present();
+  }
+
+
 
   onOtpChange(otp){
       // console.log(otp);
@@ -71,28 +83,28 @@ export class ForgetpasswordComponent implements OnInit {
       console.log(this.userOtpInput);
   }
 
-  sentOTPtoUser(){
-    const smsEmail = 'ayaweisoft@gmail.com';
-    const smsApi = '320bf56fb1683682fef15e4285d52b7861c293ba';
-    const smSsender = 'I-SABI'; 
-    let numberString = this.model.number.toString();
-    let code ='234'; 
-    let recipient = code+numberString;
-    let messageText = `Use the folowing OTP to reset your password${this.otpFromServer}`;
+//   sentOTPtoUser(){
+//     const smsEmail = 'ayaweisoft@gmail.com';
+//     const smsApi = '320bf56fb1683682fef15e4285d52b7861c293ba';
+//     const smSsender = 'I-SABI'; 
+//     let numberString = this.model.number.toString();
+//     let code ='234'; 
+//     let recipient = code+numberString;
+//     let messageText = `Use the folowing OTP to reset your password${this.otpFromServer}`;
   
-    // tslint:disable-next-line: max-line-length
-    this.http.get(`http://api.ebulksms.com:8080/sendsms?${smsEmail}=&apikey=${smsApi}&sender=${smSsender}&${messageText}&flash=0&recipients=${recipient}`
-  ,{headers: new HttpHeaders({
-    "Content-Type":  "application/json","Access-Control-Allow-Origin":"*"
-  })
-}).subscribe(
-    res => { 
-      console.log(res);
-    },
-    err => {
-      console.log(err);
-    }
-  );
-  }
+//     // tslint:disable-next-line: max-line-length
+//     this.http.get(`http://api.ebulksms.com:8080/sendsms?${smsEmail}=&apikey=${smsApi}&sender=${smSsender}&${messageText}&flash=0&recipients=${recipient}`
+//   ,{headers: new HttpHeaders({
+//     "Content-Type":  "application/json","Access-Control-Allow-Origin":"*"
+//   })
+// }).subscribe(
+//     res => { 
+//       console.log(res);
+//     },
+//     err => {
+//       console.log(err);
+//     }
+//   );
+//   }
 
 }

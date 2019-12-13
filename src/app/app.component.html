@@ -16,7 +16,8 @@
       <ion-header>
         <ion-toolbar color="warning">
             <ion-title>{{accountService.appUser}} </ion-title> <br>
-            <h6 class="ml-5"> <ion-badge color="success">{{accountService.accountBalance | number}}  ₦ </ion-badge> <br>
+            <h6 class="ml-5"> <ion-badge color="success">{{accountService.accountBalance | number}}  ₦ </ion-badge>
+              <ion-icon name="sync" (click)="releadBalance()"></ion-icon> <br>
            <p class=" text-white"> ID: {{accountService.user_id}} </p></h6>
         </ion-toolbar>
       </ion-header>

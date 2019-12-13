@@ -7,7 +7,7 @@ import { AccountService } from '../shared/account.service';
   styleUrls: ['./admintransfer.page.scss'],
 })
 export class AdmintransferPage implements OnInit {
-manualTransfer : any;
+manualTransfer : Array<any>;
 loading: boolean = true;
 
   constructor(private accountService : AccountService) { 
@@ -32,8 +32,10 @@ loading: boolean = true;
     this.accountService.confirmTransaction(id).subscribe(
       res => {
         console.log(res);
+        this.getManualList();
       },err => {
         console.log(err);
+        this.getManualList();
       }
     )
     
