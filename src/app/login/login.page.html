@@ -27,14 +27,17 @@
          <div *ngIf="loading"><ion-progress-bar type="indeterminate"></ion-progress-bar></div>
           <div  class="text-input mb-2">
               <ion-label class="ml-3" position="floating">Phone</ion-label>
-              <ion-input class="ml-3" type="number" #number name="number" clearInput [(ngModel)]="model.number"
+              <ion-input class="ml-3" type="tel" #number name="number" clearInput [(ngModel)]="model.number"
                 autocomplete="off"  minlength="11"  required="true" [pattern]="phoneRegex" ></ion-input>
           </div>
            
           <div  class="text-input mb-2">
               <ion-label class="ml-3"  position="floating">Password</ion-label>
           <ion-input class="ml-3" type="password" input #password name="password" minlength="6"
-           [(ngModel)]="model.password" clearInput required="true"></ion-input>
+           [(ngModel)]="model.password" clearInput required="true">
+            <ion-icon (click)="password.type=password.type=='password'?'text':'password'" size="medium" name="eye"></ion-icon>
+
+          </ion-input>
           </div>
           
          
@@ -47,6 +50,7 @@
             <ion-button size="small"  type="submit" color="light" (submit)="login(loginForm)"
             > <p style="color: #00351a;" class="font-weight-bold">LOGIN</p> </ion-button>
         </div>
+       
   
           <!-- <div class="justify-content-center row pt-2">
               <ion-button (click)="facebookLogin();" size="small"

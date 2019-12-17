@@ -96,6 +96,10 @@ constructor(private http: HttpClient,
     postTransaction(tranx){
       return this.http.post(environment.apiBaseUrl + `/submit-transaction`, tranx);
     }
+    postManualTransaction(tranx){
+      return this.http.post(environment.apiBaseUrl + `/submit-manual-transaction`, tranx);
+    }
+
     loadBalance(){
       this.accountService.getLeaderGameSection();
       return this.http.get(environment.apiBaseUrl + '/load-balance');
@@ -116,6 +120,11 @@ constructor(private http: HttpClient,
   
     getUserRole(){
       return localStorage.getItem('user-role');
+     }
+
+
+     resetPassword(credentials){
+       return this.http.post(environment.apiBaseUrl + '/reset-password', credentials);
      }
   
      postQuestionRecord( record){
@@ -170,6 +179,9 @@ constructor(private http: HttpClient,
       localStorage.removeItem('appUser');
       this.router.navigateByUrl('/login');
      }
+
+
+    
   
    
 }

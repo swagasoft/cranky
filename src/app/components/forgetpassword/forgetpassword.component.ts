@@ -1,9 +1,9 @@
 import { UserService } from 'src/app/shared/user.service';
 import { AccountService } from './../../shared/account.service';
 import { NgForm } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-forgetpassword',
@@ -20,7 +20,9 @@ export class ForgetpasswordComponent implements OnInit {
   confirmOTP : boolean = false;
   otpFromServer: any;
   userOtpInput: any = 0;
+  phoneFromServer : any;
   loading: boolean = false;
+  allowReset : boolean = false;
 
   // noAuthHeader = headers: new HttpHeaders({NoAuth: 'True'});
 
@@ -30,16 +32,18 @@ export class ForgetpasswordComponent implements OnInit {
  
   constructor(private accountService: AccountService,
               private http: HttpClient,
+              public alertController: AlertController,
               public toastController: ToastController,
               private userService: UserService) { 
-
-
   }
 
  
 
   model = {
-    number:''
+    number:'',
+    userOtpConfirm : '',
+    newPassword : '',
+    confirmPassword : ''
   }
 
   ngOnInit() {
@@ -49,12 +53,16 @@ export class ForgetpasswordComponent implements OnInit {
 
   submitNumber(form: NgForm) {
     this.loading = true;
-    console.log(this.model.number);
     this.userService.confirmNumber(this.model.number).subscribe(
       res => {
         this.loading = false;
+        this.showPasswordInput();
         this.otpFromServer = res['otp'];
+        this.phoneFromServer = res['phone'];
+
+
         console.log(this.otpFromServer);
+        console.log(this.phoneFromServer);
         this.showNumberForm = false;
         this.showOTPInput = true;
       },
@@ -66,6 +74,56 @@ export class ForgetpasswordComponent implements OnInit {
     );
   }
 
+  // alert input for reset password
+  async showPasswordInput() {
+    const alert = await this.alertController.create({
+      header: 'ENTER OTP SENT TO YOU',
+      inputs: [
+        {
+          name: 'otp',
+          type: 'number',
+          placeholder: 'enter otp'
+        }],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('password reset cancel');
+         
+          } 
+        }, {
+          text: 'Confirm',
+          handler: (data) => {
+            this.allowResetpasswordIfTrue(data.otp);
+            console.log(' clecked ok.....', data.otp);
+
+                 }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
+  allowResetpasswordIfTrue(userOtp){
+      if(userOtp === this.otpFromServer){
+        console.log('UNLUCK PASSWORD API');
+        this.allowReset = true;
+      }else{
+        let msg = 'The supplied OTP is invalid';
+        this.presentToast(msg);
+        this.showNumberForm = true;
+        console.log('otp is not correct..');
+      }
+  } 
+
+
+
+
   async noUserFound() {
     const toast = await this.toastController.create({
       message: `User with 0${this.model.number} not found`,
@@ -75,36 +133,29 @@ export class ForgetpasswordComponent implements OnInit {
     toast.present();
   }
 
+  submitNewPassword(password) {
+    console.log(this.model.newPassword);
+    console.log(this.model.confirmPassword);
+   if(this.model.newPassword === this.model.confirmPassword){
+     console.log('user can submit password');
+     this.user
+   }else{
+    console.log('password not match');
+    let msg = 'password not match';
+    this.presentToast(msg);
 
-
-  onOtpChange(otp){
-      // console.log(otp);
-      this.userOtpInput = this.userOtpInput + otp;
-      console.log(this.userOtpInput);
+   }
   }
 
-//   sentOTPtoUser(){
-//     const smsEmail = 'ayaweisoft@gmail.com';
-//     const smsApi = '320bf56fb1683682fef15e4285d52b7861c293ba';
-//     const smSsender = 'I-SABI'; 
-//     let numberString = this.model.number.toString();
-//     let code ='234'; 
-//     let recipient = code+numberString;
-//     let messageText = `Use the folowing OTP to reset your password${this.otpFromServer}`;
-  
-//     // tslint:disable-next-line: max-line-length
-//     this.http.get(`http://api.ebulksms.com:8080/sendsms?${smsEmail}=&apikey=${smsApi}&sender=${smSsender}&${messageText}&flash=0&recipients=${recipient}`
-//   ,{headers: new HttpHeaders({
-//     "Content-Type":  "application/json","Access-Control-Allow-Origin":"*"
-//   })
-// }).subscribe(
-//     res => { 
-//       console.log(res);
-//     },
-//     err => {
-//       console.log(err);
-//     }
-//   );
-//   }
+
+  async presentToast(msg) {
+    const toast = await this.toastController.create({
+      message: msg,
+      position : 'middle',
+      duration: 3000
+    });
+    toast.present();
+  }
+
 
 }

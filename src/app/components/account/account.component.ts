@@ -124,7 +124,7 @@ async showAlert() {
           trxref: this.reference, account_id: this.accountService.user_id, transaction : ' manual transfer'};
           process.username = this.appUsername;
           console.log('Confirm Okay', process);
-          this.userService.postTransaction(process).subscribe(
+          this.userService.postManualTransaction(process).subscribe(
             res => {
               console.log(res);
               this.presentSucess();
