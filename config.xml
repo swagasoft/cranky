@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ayawiesoft.swagasoft" version="1.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name short="I-SABI">I-sabi</name>
+<widget id="ayawiesoft.swagasoft" version="1.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name short="i-sabi">I-sabi</name>
     <description>Quiz game App.</description>
     <author email="ayaweisoft@gmail.com" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />

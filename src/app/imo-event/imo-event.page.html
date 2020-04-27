@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons> <div class="row d-flex justify-content-center">
+      <img class="rounded-top"  src="../../../assets/icon/Logoicon.png">
+    </div> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content">
+
+   <div >
+     <ion-row >
+      <ion-col *ngFor="let item of pagents">
+       <ion-card >
+            <img src="{{item?.image}} " alt="">
+            <p class="text-white">{{item?.username}} </p>
+       </ion-card>
+      </ion-col>
+     </ion-row>
+   </div>
+  </div>
+
+</ion-content>

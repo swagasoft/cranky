@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-apiBaseUrl:  'http://localhost:8000/api'
+apiBaseUrl:  'http://localhost:8000/api',
+// baseSocket:  'http://localhost:8000',
 // apiBaseUrl: ' https://i-sabi.herokuapp.com/api'
 };
 
@@ -18,3 +19,5 @@ apiBaseUrl:  'http://localhost:8000/api'
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+

@@ -32,21 +32,31 @@
     <ion-item  class="text-center font-weight-bold"> 
       <ion-badge color="success" class="text-center">GAME LIST</ion-badge> <ion-badge color="success">{{gameRecord?.length}} </ion-badge>  </ion-item>
     <div  *ngFor="let item of gameRecord; index as i" class="content">
-      <ion-card class="text-center  play-record">
+      <ion-card class=" text-center  play-record">
+        <!-- text-center  play-record animated fadeInLeft delay-{{i}}s -->
         <div class="d-flex">
-          
-          <ion-list-header class="font-weight-bold  justify-content-left"> {{i + 1}} </ion-list-header>
-          <p class="font-weight-bold justify-content-left"> {{item.Date | date:'shortDate' }},{{item.Date | date: 'mediumTime'}}</p>
+          <ion-list-header class="font-weight-bold  justify-content-left">
+             {{i + 1}} </ion-list-header>
+          <ion-row class="font-weight-bold justify-content-center">
+             {{item.Date | date:'shortDate' }},{{item.Date | date: 'mediumTime'}}</ion-row>
           <ion-row>
-            <ion-icon (click)="deleteRecord(item._id)" class="justify-content-right" size="large" color="danger" name="trash"></ion-icon>
+            <ion-button [disabled]="item.correct_qst == 15" color="light" 
+             (click)="deleteRecord(item._id)" class="justify-content-right">
+              <ion-icon color="danger" size="large" name="trash"></ion-icon>
+            </ion-button>
 
           </ion-row>
         </div>  
         
-        <ion-list class="font-weight-bold"> ENLAPSED  {{item.minutes}} min {{item.seconds}} seconds </ion-list>
+        <ion-list class="font-weight-bold"> ENLAPSED  {{item.minutes}} , min {{item.seconds}} seconds </ion-list>
         <ion-list *ngIf="item.correct_qst == 15;" class="font-weight-bold text-danger nominated" > NOMININATED !</ion-list>
-        <ion-list class="font-weight-bold ">CORRECT ANSWER   <p class="text-success"> {{item.correct_qst}}</p></ion-list>
-        <ion-list class="font-weight-bold">WRONG ANSWER  <p class="text-danger"> {{item.wrong_qst}}</p></ion-list>
+
+        <ion-row class="d-flex justify-content-center">
+          <p class="text-success "><ion-icon color="sucess" size="large" name="checkmark"></ion-icon> {{item.correct_qst}}</p>
+
+          <p class="text-danger "><ion-icon color="danger" size="large" name="close-circle-outline"></ion-icon> {{item.wrong_qst}}</p>
+        </ion-row>
+       
       </ion-card>
     </div>
    

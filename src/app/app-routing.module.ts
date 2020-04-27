@@ -1,3 +1,6 @@
+import { AdminEventComponent } from './components/admin-event/admin-event.component';
+import { MerchantGuard } from './merchant.guard';
+import { AdminnavigationComponent } from './adminnavigation/adminnavigation.component';
 import { ForgetpasswordComponent } from './components/forgetpassword/forgetpassword.component';
 import { AdminGuard } from './auth/admin.guard';
 import { AccountComponent } from './components/account/account.component';
@@ -58,6 +61,22 @@ const routes: Routes = [
   canActivate:[AuthguardGuard, AdminGuard] },
   { path: 'admintransfer', loadChildren: './admintransfer/admintransfer.module#AdmintransferPageModule',
   canActivate:[AuthguardGuard, AdminGuard] },
+  { path: 'howtoplay', loadChildren: './howtoplay/howtoplay.module#HowtoplayPageModule' },
+  { path: 'admin-navigation', component: AdminnavigationComponent},
+  { path: 'admin-leaderbord', loadChildren: './admin-leaderbord/admin-leaderbord.module#AdminLeaderbordPageModule',
+  canActivate:[AuthguardGuard, AdminGuard] },
+  { path: 'admin-play',
+   loadChildren: './admin-play/admin-play.module#AdminPlayPageModule',canActivate:[AuthguardGuard, AdminGuard] },
+  { path: 'merchant',
+   loadChildren: './merchant/merchant.module#MerchantPageModule', canActivate:[AuthguardGuard, MerchantGuard] },
+  { path: 'testimonials', loadChildren: './testimonials/testimonials.module#TestimonialsPageModule' },
+  { path: 'contactus', loadChildren: './contactus/contactus.module#ContactusPageModule' },
+  { path: 'cashout-request',
+   loadChildren: './cashout-request/cashout-request.module#CashoutRequestPageModule', 
+    canActivate:[AuthguardGuard, AdminGuard] },
+  { path: 'events', loadChildren: './events/events.module#EventsPageModule' },
+  { path: 'imo-event', loadChildren: './imo-event/imo-event.module#ImoEventPageModule' },
+  { path: 'admin-event', component : AdminEventComponent },
  
 ];
 

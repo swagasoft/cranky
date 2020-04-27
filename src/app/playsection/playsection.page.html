@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar> 
       
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
@@ -12,10 +12,10 @@
   </ion-header>
 
 <ion-content>
-  <div  class="play-area content">
+  <div  class="play-area content"> 
 
   
-    <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab *ngIf="!gameOver" vertical="top" horizontal="center" slot="fixed">
         <ion-fab-button color="success">
          <ion-row>
            <h5 class="mt-2 p-3 font-weight-bold">{{timeMinute}} : {{timeSeconds}} </h5>
@@ -25,35 +25,35 @@
 
   
       <!-- *ngFor="let item of accountService.leaderboard$; index as i" -->
-         <div >
-            <ion-card class="play-area-header"  *ngIf="!loadingGame" >
-                <ion-card-title class="play-area-header">
-                   <small>THERE’S STILL A PLACE FOR YOU</small>
-                  </ion-card-title>
+         <!-- <div >
                   <ion-card-content>
                     <ion-row>
                       <ion-col  *ngFor="let item of accountService.leaderboardGameSection$" >
                           <ion-avatar>
-                              <img src="../../assets/img/leader_icon.png" alt="">
+                              <img class="leaders" src="../../assets/img/leader_icon.png" alt="">
                             </ion-avatar><p class="font-weight-bold">{{item.user}} </p><br>
-                             <p>{{item.minutes}}: {{item.seconds}} </p>
-                            
                        </ion-col>
                     </ion-row>
-          
                   </ion-card-content>
-              </ion-card> 
-        </div>
+        </div> -->
   
    
 
-      <ion-item-divider class="" >
-          <ion-segment class="">
-              <ion-label class="font-weight-bold text-success"> CORRECT : {{correctAns}}</ion-label>
+      <ion-item-divider *ngIf="startGame" >
+         
+            <ion-segment>
+              <div class="animated" #correct>
+              <ion-label  class=" font-weight-bold text-success"> CORRECT : {{correctAns}}</ion-label>
+            </div>
             </ion-segment>
-            <ion-segment class="" >
-              <ion-label class="font-weight-bold text-danger">WRONG : {{wrongAns}} </ion-label>
+        
+          
+            <ion-segment >
+              <div class="animated" #wrong >
+              <ion-label class="animated font-weight-bold text-danger">WRONG : {{wrongAns}} </ion-label>
+            </div>
             </ion-segment>
+          
       </ion-item-divider>
 
 
@@ -64,57 +64,60 @@
           
           </div>
            
-           <ion-card-title><p class="m-4">{{currentQuestion?.question}} </p></ion-card-title>
+           <ion-card-title><p class="m-4 text-white">{{currentQuestion?.question}} </p></ion-card-title>
            <ion-card-content class="text-left mb-5">
           
-               <ion-list  expand="full"  class="option " 
+               <ion-button color="success"  expand="full"  class="option mb-3" [disabled]="disableClick" 
                 (click)="checkAnswer(currentQuestion?.option1, currentQuestion?.answer);">
-                 A : {{currentQuestion?.option1}} </ion-list>
+                  {{currentQuestion?.option1}} </ion-button>
              
-                 <ion-list  expand="full" class="option " 
+                 <ion-button color="success" expand="full" class="option mb-3" [disabled]="disableClick"
                   (click)="checkAnswer(currentQuestion?.option2, currentQuestion?.answer); ">
-                   B : {{currentQuestion?.option2}} </ion-list>
+                    {{currentQuestion?.option2}} </ion-button>
              
            
-                 <ion-list  expand="full"  class="option " 
+                 <ion-button  color="success" expand="full"  class="option mb-3" [disabled]="disableClick"
                  (click)="checkAnswer(currentQuestion?.option3, currentQuestion.answer); ">
-                  C : {{currentQuestion?.option3}} </ion-list>
+                   {{currentQuestion?.option3}} </ion-button>
              
               
-                 <ion-list  expand="full"  class="option "  
+                 <ion-button color="success" expand="full"  class="option mb-3" [disabled]="disableClick" 
                   (click)="checkAnswer(currentQuestion?.option4, currentQuestion.answer); ">
-                   D : {{currentQuestion?.option4}} </ion-list>
+                    {{currentQuestion?.option4}} </ion-button>
              
            </ion-card-content>
            </ion-card>
  
 
-           <div *ngIf="!loadingGame" class="mt-5">
-              <ion-button expand="block"  size="large" color="success"  *ngIf="!startGame" (click)="startQuestion()">
+           <div *ngIf="!loadingGame" style="padding-top: 20%;">
+            <ion-card class="p-3">
+              <!-- select filter -->
+              <ion-item color="success" >
+                <ion-label color="light" class="text-center">select your category</ion-label>
+                <ion-select select="success" interface="popover" (ngModelChange)="selectChange($event)" 
+                [(ngModel)]="model.filterOptions">
+                  <ion-select-option class="text-dark" value="economics">Economics</ion-select-option>
+                  <ion-select-option color="success" value="sport">Sport</ion-select-option>
+                  <ion-select-option color="success" value="movie">Movie</ion-select-option>
+                  <ion-select-option color="success" value="science">Science</ion-select-option>
+                  <ion-select-option color="success" value="history">History</ion-select-option>
+                  <ion-select-option color="success" value="politics">Politics</ion-select-option>
+                  <ion-select-option color="success" value="arts">Art</ion-select-option>
+                  <ion-select-option  color="success" value="tourism">Tourism</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-card>
+
+              <ion-button expand="block" 
+                size="large" color="success"  *ngIf="!startGame" (click)="startQuestion()">
                   PLAY NOW !</ion-button>
-           </div>
-
-               <div  *ngIf="gameOver" class="mt-5">
-                  <h6 id="correct"> CORRECT QUESTIONS = {{correctAns}} </h6>
-                  <h6 id="wrong"> WRONG QUESTIONS = {{wrongAns}} </h6>
-                  <div class="justify-content-center d-flex mt-4">
-                      <!-- <img src="../../assets/animation/animated-firework.gif" alt="">  -->
-                      <br>
-                      <!-- <div class="text-center">
-                         <h4 id="nominated"> NOMINATED! </h4>
-                         <ion-icon size="large" color="warning" name="trophy"></ion-icon>
-                         </div> -->
+                  <div class=" text-center  p-2 mt-5 animated infinite
+                   shake  " #info> 
+                    <p class="info"  *ngIf="!startGame">15 correct questions can give 5k</p>
                   </div>
-                  <div class="d-flex row">
-                    <div class="col justify-content-left">
-                      <ion-button color="success" (click)="gameOverToleaderboard()"> LEADERBOARD</ion-button>
-                    </div>
-                    <div class=" col justify-content-right">
-                      <ion-button color="success" (click)="gameOverToRecords()">MY RECORD</ion-button>
-                    </div>
-
-                  </div> 
-               </div>
+           </div>
+ 
+             
  
      <br>
           <!-- <div class="justify-content-center d-flex" *ngIf="!startGame">
@@ -137,7 +140,8 @@
                       <div class="lds-roller"><div></div><div></div><div></div><div></div>
                       <div></div><div></div><div></div><div></div></div>
                   </div>
-                  <p class="bg-dark text-white text-center"> loading...</p>
+                  <p style="margin-top: 30%;" class="bg-dark  text-white text-center"> preparing questions...</p>
                 </div>
               </div>
+        
 </ion-content> 

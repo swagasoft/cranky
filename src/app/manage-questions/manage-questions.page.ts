@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
-import { MenuController, AlertController } from '@ionic/angular';
+import { MenuController, AlertController, PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { AdminnavigationComponent } from '../adminnavigation/adminnavigation.component';
 
 @Component({
   selector: 'app-manage-questions',
@@ -14,13 +15,21 @@ export class ManageQuestionsPage implements OnInit {
   catType: any;
   loading: boolean;
   showForm: boolean;
-  showContent: boolean;
+  showContent: boolean; 
   questionToEdit: any;
+  liveQuestions: any;
+  allLive_section : boolean = false;
+  search_section : boolean = false;
+  manage_section : boolean = true;
 
   constructor(private userService: UserService,
               public menu: MenuController,
+              private popoverController: PopoverController,
               public alertController: AlertController,
-              private router: Router) { }
+              private router: Router) {
+                this.getAllQuestions();
+                this.getLiveQuestions();
+               }
 
               questionModel = {
                 id: '',
@@ -37,18 +46,27 @@ export class ManageQuestionsPage implements OnInit {
               
   model = {
     filterOptions : [
-    ]
-  }
-  ngOnInit() {
+    ],
+    search:''
+  } 
+  ngOnInit() { 
     this.loading = false;
     this.showContent = true;
     this.showForm = false;
     this.questionsOutPut = 0;
-    this.getAllQuestions();
   }
 
   selectChange( $event) {
     this.findByCategory($event);
+        }
+
+        getLiveQuestions(){
+          this.userService.getLiveQuestionAmount().subscribe(
+            res => {
+              console.log(res);
+              this.liveQuestions = res['count'];
+            }
+          )
         }
 
         getAllQuestions(){
@@ -146,7 +164,7 @@ export class ManageQuestionsPage implements OnInit {
             this.showContent = false;
             this.showForm = true;
             this.loading = true;
-            this.userService.getSingleQuestion(id).subscribe(
+            this.userService.getSingleQuestion(id).subscribe( 
               res => {
                 this.loading = false;
                 this.questionToEdit = res['doc'];
@@ -180,7 +198,32 @@ export class ManageQuestionsPage implements OnInit {
         this.findByCategory(this.questionModel.category);
       },
       error => {
-        console.log(error);
+        console.log(error); 
+      }
+    );
+  }
+
+  async presentNavigation() {
+    const popover = await this.popoverController.create({
+      component: AdminnavigationComponent,
+      translucent: true
+    });
+    return await popover.present();
+  }
+
+  searchQst(){
+    console.log(this.model.search);
+    let searchText = { text : this.model.search}
+    this.loading = true;
+    this.userService.searchQuestion(searchText).subscribe(
+      res => {
+        this.loading =false;
+        console.log(res);
+        this.questionsOutPut = res['questions'];
+        console.log(this.questionsOutPut);
+      },
+      err => {
+        console.log(err);
       }
     );
   }

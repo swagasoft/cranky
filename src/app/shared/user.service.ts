@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs';
+
+import { Observable, observable } from 'rxjs';
 import { AccountService } from 'src/app/shared/account.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -6,14 +7,17 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Network } from '@ionic-native/network/ngx';
 
-@Injectable({
+
+@Injectable({ 
   providedIn: 'root'
 })
 export class UserService {
+  messsageFromServer : any;
   token: any;
   accountBalance: any;
   username: any;
   networkDisconnet = false;
+
 
   
 noAuthHeader = {headers: new HttpHeaders({NoAuth: 'True'})};
@@ -25,15 +29,14 @@ AuthHeader = {headers: new HttpHeaders().set('Authorization',
 constructor(private http: HttpClient,
             private network: Network,
             private accountService: AccountService,
-            private router: Router) {
-              
+            private router: Router
+            ) {
+              this.network.onDisconnect().subscribe(()=> {
+            console.log('CONNETION LOST');
+            this.networkDisconnet = true;
+          });
 
-    this.network.onDisconnect().subscribe(()=> {
-      console.log('CONNETION LOST');
-      this.networkDisconnet = true;
-    });
-
-    this.network.onConnect().subscribe(()=> {
+              this.network.onConnect().subscribe(()=> {
       setTimeout(()=> {
         console.log(' WE ARE BACK IN CONNECTION');
         this.networkDisconnet = false;
@@ -41,6 +44,7 @@ constructor(private http: HttpClient,
     });
 
     }
+
 
     registerUser( user) {
       return this.http.post(environment.apiBaseUrl + '/register' , user, this.noAuthHeader);
@@ -74,7 +78,16 @@ constructor(private http: HttpClient,
     findByCategory(category){
       return this.http.get(environment.apiBaseUrl + `/find-by-category${category}`, );
     }
-   
+
+    playByCategory(category){
+      return this.http.get(environment.apiBaseUrl + `/play-by-category${category}` );
+    }
+
+    getLiveQuestionAmount(){
+      return this.http.get(environment.apiBaseUrl + '/get-live-questions-amount');
+    }
+
+
 
     changeQuestionStatusToFalse(id){
       return this.http.get(environment.apiBaseUrl + `/change-to-false${id}`);
@@ -117,6 +130,10 @@ constructor(private http: HttpClient,
       this.accountService.getLeaderGameSection();
       return this.http.get(environment.apiBaseUrl + '/get-random-questions-for-game');
     }
+
+    getAllLiveQuestions(){
+      return this.http.get(environment.apiBaseUrl + '/get-all-live-questions');
+    }
   
     getUserRole(){
       return localStorage.getItem('user-role');
@@ -129,6 +146,9 @@ constructor(private http: HttpClient,
   
      postQuestionRecord( record){
        return this.http.post(environment.apiBaseUrl +'/post-game-record', record);
+     }
+     searchQuestion(words){
+       return this.http.post(environment.apiBaseUrl + '/search-question', words);
      }
      getGameRecord(){
        return this.http.get(environment.apiBaseUrl + '/get-game-record');
@@ -179,6 +199,8 @@ constructor(private http: HttpClient,
       localStorage.removeItem('appUser');
       this.router.navigateByUrl('/login');
      }
+
+
 
 
     

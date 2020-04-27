@@ -2,9 +2,17 @@
 <widget version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <access origin="*" />
   
+  <feature name="Badge">
+    <param name="android-package" value="de.appplant.cordova.plugin.badge.Badge"/>
+  </feature>
+
   <feature name="FacebookConnectPlugin">
     <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin"/>
     <param name="onload" value="true"/>
+  </feature>
+
+  <feature name="LocalNotification">
+    <param name="android-package" value="de.appplant.cordova.plugin.localnotification.LocalNotification"/>
   </feature>
 
   <feature name="NativeAudio">
@@ -13,6 +21,10 @@
 
   <feature name="NetworkStatus">
     <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager"/>
+  </feature>
+
+  <feature name="OneSignalPush">
+    <param name="android-package" value="com.plugin.gcm.OneSignalPush"/>
   </feature>
 
   <feature name="Device">
@@ -31,7 +43,7 @@
 
   
   <preference name="ScrollEnabled" value="false" />
-  <preference name="android-minSdkVersion" value="19" />
+  <preference name="android-minSdkVersion" value="18" />
   <preference name="BackupWebStorage" value="none" />
   <preference name="SplashMaintainAspectRatio" value="true" />
   <preference name="FadeSplashScreenDuration" value="1000" />

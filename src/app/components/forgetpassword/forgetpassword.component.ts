@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/user.service';
 import { AccountService } from './../../shared/account.service';
 import { NgForm } from '@angular/forms';
@@ -33,6 +34,7 @@ export class ForgetpasswordComponent implements OnInit {
   constructor(private accountService: AccountService,
               private http: HttpClient,
               public alertController: AlertController,
+              private router : Router,
               public toastController: ToastController,
               private userService: UserService) { 
   }
@@ -136,9 +138,21 @@ export class ForgetpasswordComponent implements OnInit {
   submitNewPassword(password) {
     console.log(this.model.newPassword);
     console.log(this.model.confirmPassword);
-   if(this.model.newPassword === this.model.confirmPassword){
+    if(this.model.newPassword === this.model.confirmPassword){
      console.log('user can submit password');
-     this.user
+
+     this.userService.resetPassword(this.model).subscribe(
+      response => {
+        console.log(response);
+        this.router.navigate(['/login']);
+        let msg = 'Successful!!! you can login with your new password'
+        this.presentToast(msg);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
    }else{
     console.log('password not match');
     let msg = 'password not match';
@@ -152,7 +166,7 @@ export class ForgetpasswordComponent implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       position : 'middle',
-      duration: 3000
+      duration: 2000
     });
     toast.present();
   }

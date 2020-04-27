@@ -1,6 +1,10 @@
+import { ForgetpasswordComponent } from './../components/forgetpassword/forgetpassword.component';
+import { AdminAccountComponent } from './../admin-account/admin-account.component';
+import { AdminnavigationComponent } from './../adminnavigation/adminnavigation.component';
+import { AccountComponent } from './../components/account/account.component';
 import { UserService } from 'src/app/shared/user.service';
 import { Component, OnInit } from '@angular/core';
-import { MenuController, ToastController, AlertController } from '@ionic/angular';
+import { MenuController, ToastController, AlertController, PopoverController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -16,6 +20,7 @@ export class AdminUploadPage implements OnInit {
 
   constructor(private userService: UserService,
               public toastController: ToastController,
+              public popoverController: PopoverController,
               public alertController: AlertController) { }
 
               
@@ -37,6 +42,14 @@ export class AdminUploadPage implements OnInit {
 
   ngOnInit() {
     this.loading = false;
+  }
+
+  async presentNavigation() {
+    const popover = await this.popoverController.create({
+      component: AdminnavigationComponent,
+      translucent: true
+    });
+    return await popover.present();
   }
 
 

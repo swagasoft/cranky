@@ -1,83 +1,116 @@
-import { environment } from './../../environments/environment';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
- 
+import { environment } from "./../../environments/environment";
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AccountService {
-  public appUser :any;
-  public accountBalance:Observable<number>;
-  leaderboard$: Observable <any>;
-  leaderboardGameSection$: Observable <any>;
+  public appUser: any;
+  public accountBalance: Observable<number>;
+  leaderboard$: Observable<any>;
+  leaderboardGameSection$: Observable<any>;
   appUsername: any;
   public user_id: string;
 
+  noAuthHeader = { headers: new HttpHeaders({ NoAuth: "True" }) };
+  AuthHeader = {
+    headers: new HttpHeaders().set(
+      "Authorization",
+      `Bearer ${localStorage.getItem("token")}`
+    )
+  };
 
-  noAuthHeader = {headers: new HttpHeaders({NoAuth: 'True'})};
-  AuthHeader = {headers: new HttpHeaders().set('Authorization',
-  `Bearer ${localStorage.getItem('token')}`)};
-  
-    constructor(private http: HttpClient, private router: Router) {
-     }
+  constructor(private http: HttpClient, private router: Router) {}
 
-    loadMyBalance() {
-      // console.log('GETTING BALANCE');
-      this.getLeaderGameSection();
-      this.appUser = localStorage.getItem('appUser');
-      this.http.get(environment.apiBaseUrl + '/get-account-balance').subscribe((value)=> {
-        // console.log(value);
+  loadMyBalance() {
+    console.log("GETTING BALANCE");
+    this.getLeaderGameSection();
+    this.appUser = localStorage.getItem("appUser");
+    this.http
+      .get(environment.apiBaseUrl + "/get-account-balance")
+      .subscribe(value => {
+        console.log("my balance", value);
 
-        this.accountBalance = value['balance'];
+        this.accountBalance = value["balance"];
         this.getLeaderboard();
-        this.user_id = localStorage.getItem('user_id');
-        this.appUsername = localStorage.getItem('appUser');
-
+        this.user_id = localStorage.getItem("user_id");
+        this.appUsername = localStorage.getItem("appUser");
       });
-    }
+  }
 
-    getLeaderboard() {
-      this.getLeaderGameSection();
-    this.http.get(environment.apiBaseUrl + '/get-leaderboard').subscribe((value)=> {
-      this.leaderboard$ = value['document'];
-    });
-    }
+  getLeaderboard() {
+    // this.getLeaderGameSection();
+    // tslint:disable-next-line: align
+    return this.http.get(environment.apiBaseUrl + "/get-leaderboard");
+  }
 
-    getLeaderGameSection() {
-    this.http.get(environment.apiBaseUrl + '/get-leaderboard-game-section').subscribe((value)=> {
-      this.leaderboardGameSection$ = value['document'];
+  getWinners(){
+    return this.http.get(environment.apiBaseUrl + "/get-winners");
+  }
 
-    });
-    }
-   
+  merchantTransfer(username){
+    return this.http.post(environment.apiBaseUrl + '/merchant-transfer', username);
+  }
 
-    loadBalanceForCalculation(){
-      this.loadMyBalance();
-      return this.http.get(environment.apiBaseUrl + '/get-account-balance');
-    }
+  getLeaderGameSection() {
+    this.http
+      .get(environment.apiBaseUrl + "/get-leaderboard-game-section")
+      .subscribe(value => {
+        this.leaderboardGameSection$ = value["document"];
+      });
+  }
 
-    deductGameAmountFromAccount(){
-      return this.http.get(environment.apiBaseUrl + '/deduct-game-amount');
-    }
+  loadBalanceForCalculation() {
+    this.loadMyBalance();
+    return this.http.get(environment.apiBaseUrl + "/get-account-balance");
+  }
 
-    myTransaction(){
-      return this.http.get(environment.apiBaseUrl + '/get-my-transaction');
-    }
+  deductGameAmountFromAccount() {
+    return this.http.get(environment.apiBaseUrl + "/deduct-game-amount");
+  }
 
-    getManualTransactions(){
-      return this.http.get(environment.apiBaseUrl + '/get-manual-transactions');
-    }
+  myTransaction() {
+    return this.http.get(environment.apiBaseUrl + "/get-my-transaction");
+  }
 
-    confirmTransaction(accountId){
-      return this.http.get(environment.apiBaseUrl + `/confirm-transaction${accountId}`);
-    }
+  getManualTransactions() {
+    return this.http.get(environment.apiBaseUrl + "/get-manual-transactions");
+  }
 
- 
+  cashout(amount){
+    return this.http.post(environment.apiBaseUrl + '/user-cashout', amount);
+  }
 
-   
-  
+  confirmTransaction(accountId) {
+    return this.http.get(
+      environment.apiBaseUrl + `/confirm-transaction${accountId}`
+    );
+  }
+
+  cashoutOutRequest(){
+    return this.http.get(environment.apiBaseUrl + '/cash-out-request');
+  }
+
+  declineTransaction(id) {
+    return this.http.get(environment.apiBaseUrl + `/decline-transaction${id}`);
+  }
+
+  settleLeader(id) {
+    return this.http.get(environment.apiBaseUrl + `/settle-leader${id}`);
+  }
+
+  queryUser(username) {
+    return this.http.post(environment.apiBaseUrl + "/query-username", username);
+  }
+
+  payWinner(user_doc){
+    return this.http.post(environment.apiBaseUrl + '/pay-winner', user_doc);
+  }
+  payCashout(user){
+    return this.http.post(environment.apiBaseUrl + '/pay-cashout', user);
+  }
 }

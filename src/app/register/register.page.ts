@@ -1,3 +1,4 @@
+import { GameServiceService } from './../shared/game-service.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { AlertController, ToastController } from '@ionic/angular';
@@ -16,6 +17,7 @@ export class RegisterPage implements OnInit {
   constructor(public userService: UserService,
               public alertController: AlertController,
               public toastController: ToastController,
+              public gameService: GameServiceService,
               private router: Router) {
                 if(this.userService.networkDisconnet){
                   // this.presentFailNetwork();
@@ -86,11 +88,11 @@ export class RegisterPage implements OnInit {
 
   
   register(){
-    this.loading = true;
+    this.loading = true; 
     this.userService.registerUser( this.model).subscribe( 
       response => {
         this.loading = false;
-        let message = "Registraion successful!"
+        let message = "Registraion successful!";
         this.presentSucess(message);        
         
       },
@@ -98,7 +100,7 @@ export class RegisterPage implements OnInit {
         this.loading = false;
         console.log(error);
         let message = error.error;
-        this.registerToast(message);
+        this.gameService.presentToast(message);
         
       }
     );

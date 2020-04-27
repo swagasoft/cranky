@@ -28,8 +28,11 @@
       <ion-list class="text-dark">
         <p class="font-weight-bold" *ngIf="item.amount">₦{{item?.amount}} </p>
         <p class="font-weight-bold" *ngIf="item.mobile_amount">₦{{item?.mobile_amount}} </p>
-        <p> status : {{item?.status}} </p>
-        <p> tanx id{{item?.trax}} </p>
+        <p *ngIf="item.status =='success'" class="text-success"> status : {{item?.status}} </p>
+        <p *ngIf="item.status =='decline'" class="text-danger"> status : {{item?.status}} </p>
+        <p *ngIf="item.status =='cashout'" class="text-warning"> status : {{item?.status}} </p>
+        <p  *ngIf="item?.trax =='paid'"  class="text-success"> tansaction : {{item?.trax}} </p>
+        <p  *ngIf="item?.trax !='paid'"> tansaction : {{item?.trax}} </p>
         <p> {{item?.ref}} </p>
       </ion-list>
       

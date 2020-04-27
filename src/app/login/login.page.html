@@ -20,10 +20,10 @@
           <div></div><div></div><div></div><div></div></div>
       </div>
     </div>
-
+ 
         <form class="mt-5 form" #loginForm 
          ngform="loginForm" name="form"  (submit)="login(loginForm)">
-         <h1  class="text-center font-weight-bold text-white mb-4">LOGIN</h1>
+         <h1  class="text-center font-weight-bold text-white mb-4 pt-5">LOGIN</h1>
          <div *ngIf="loading"><ion-progress-bar type="indeterminate"></ion-progress-bar></div>
           <div  class="text-input mb-2">
               <ion-label class="ml-3" position="floating">Phone</ion-label>
@@ -68,6 +68,32 @@
     </ion-card-content>
   </ion-card>
   <div *ngIf="userService.networkDisconnet" id="snackbar">No internet connection</div>
+
 </div>
 
+
+
+
+<ion-fab horizontal="start" vertical="bottom" slot="fixed">
+  <ion-fab-button color="success">
+    <ion-icon name="alert"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-button color="success"> 
+      <a class=" info text-white" [routerLink]="['/testimonials']"> <ion-icon name="trophy"></ion-icon> TESTIMONIALS</a>
+    </ion-button>
+    <ion-button color="success"> 
+      <a class=" info text-white" [routerLink]="['/howtoplay']" ><ion-icon name="logo-game-controller-a"></ion-icon>  HOW TO PLAY</a>
+    </ion-button>
+    <ion-button color="success"> 
+      <a class=" info text-white" [routerLink]="['/contactus']" ><ion-icon name="chatbubbles"></ion-icon> CONTACT US</a>
+    </ion-button>
+    <ion-button color="success">
+      <a class="info text-white  " href="https:/i-sabi.com/faq/" ><ion-icon name="help"></ion-icon>  FAQ </a>
+    </ion-button>
+    <ion-button color="success">
+      <a class="info text-white  " href="https:/i-sabi.com/privacy-policy-2/" > <ion-icon name="list"></ion-icon> POLICY</a>
+    </ion-button>
+  </ion-fab-list>
+</ion-fab>
 </ion-content>

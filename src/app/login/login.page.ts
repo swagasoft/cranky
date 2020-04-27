@@ -1,3 +1,4 @@
+import { GameServiceService } from './../shared/game-service.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, AlertController, ToastController } from '@ionic/angular';
 import { FormBuilder } from '@angular/forms';
@@ -24,6 +25,7 @@ export class LoginPage implements OnInit {
               public alertController: AlertController,
               public toastController: ToastController,
               public facebook : Facebook,
+              public gameService: GameServiceService,
               private router: Router, public userService: UserService) { 
     }
 
@@ -50,7 +52,7 @@ export class LoginPage implements OnInit {
     this.userService.login(this.model).subscribe(response => {
       this.userService.setToken(response['token']);
       this.userService.loadBalance();
-      console.log(response);
+      console.log('RESPONSE FROM LOGIN');
       localStorage.setItem('user_id',response['doc']['user_id']);
       localStorage.setItem('appUser',response['doc']['username']);
       localStorage.setItem('user-role',response['doc']['role']);
@@ -60,9 +62,20 @@ export class LoginPage implements OnInit {
         
     }, error => {
       this.loading = false;
+      let errorMessage = '';
       let message = error.error;
-      console.log(error);
-      this.loginToast(message);
+      if(error.error ){
+        const message  = error.error;
+        this.gameService.presentToast(message);
+        console.log('LOGIN ERROR');
+        console.log(error.statusText);
+      }else{
+        const messageErr = error.statusText;
+        this.gameService.presentToast(messageErr);
+        console.log('server error');
+      }
+     
+      // this.loginToast(message);
     });
   }
 
@@ -88,29 +101,6 @@ export class LoginPage implements OnInit {
 
   }
 
-  async loginToast(message) {
-    const toast = await this.toastController.create({
-      header: 'Info ',
-      message: `${message}`,
-      position: 'middle',
-      buttons: [
-        {
-          side: 'start',
-          icon: 'flash',
-          handler: () => {
-            console.log('Favorite clicked');
-          }
-        }, {
-          text: 'Close',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked'); 
-          }
-        }
-      ]
-    });
-    toast.present();
-  }
 
   facebookLogin(){
    this.facebook.api("/me?fields=name,username,phone,gender,birthday,email", []).then((user)=> {

@@ -10,18 +10,29 @@
             <div class="rect5"></div>
           </div>
     </div>
-
+ 
 
     <ion-menu  contentId="main-content" type="overlay">
       <ion-header>
         <ion-toolbar color="warning">
-            <ion-title>{{accountService.appUser}} </ion-title> <br>
-            <h6 class="ml-5"> <ion-badge color="success">{{accountService.accountBalance | number}}  ₦ </ion-badge>
-              <ion-icon name="sync" (click)="releadBalance()"></ion-icon> <br>
-           <p class=" text-white"> ID: {{accountService.user_id}} </p></h6>
+            <small class="p-5 ">{{accountService.appUser}}</small> <br>
+            <small class="p-5 "> ({{accountService.user_id}}) </small> <br>
+
+        
+            <div class="">
+              <h6 class="ml-5"> <ion-badge color="success"> ₦ {{accountService.accountBalance | number}}  </ion-badge>
+                <div #bal class="animated" (click)="reloadBalance()">
+                  <ion-icon name="wallet" size="large" ></ion-icon>refresh
+                </div>  
+                
+                <br>
+             <p class=" text-white"> </p></h6>
+  
+            </div>
+          
         </ion-toolbar>
       </ion-header>
-      <ion-content color="secondary">
+      <ion-content color="secondary"> 
         <ion-list class="drawer-list">
           <ion-menu-toggle  auto-hide="false" *ngFor="let p of appPages">
             <ion-item color="secondary" [routerDirection]="'root'" [routerLink]="[p.url]" routerLinkActive="router-link-active">
@@ -31,12 +42,24 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+            <ion-menu-toggle  *ngIf="userService.getUserRole() === 'MERCHANT'" [routerLink]="['/merchant']">
+                <ion-item color="secondary" >
+                <ion-icon name="cash"></ion-icon>
+                <ion-label  class="ml-4">MERCHANT</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
             <ion-menu-toggle  *ngIf="userService.getUserRole() === 'ADMIN'" [routerLink]="['/admin-upload']">
                 <ion-item color="secondary" >
                 <ion-icon name="settings"></ion-icon>
                 <ion-label  class="ml-4">ADMIN</ion-label>
               </ion-item>
             </ion-menu-toggle>
+            <!-- <ion-menu-toggle (click)="rateYourApp()">
+                <ion-item color="secondary" >
+                <ion-icon name="thumbs-up"></ion-icon>
+                <ion-label  class="ml-4">RATE MY APP</ion-label>
+              </ion-item>
+            </ion-menu-toggle> -->
             <ion-menu-toggle>
                 <ion-item color="secondary" (click)="userService.logout()" >
                 <ion-icon name="power"></ion-icon>

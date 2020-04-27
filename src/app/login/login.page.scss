@@ -9,7 +9,8 @@
 }
 
  form{
-    opacity: 1; 
+    opacity: 1;
+    padding-top: 30%; 
  }
 
  
@@ -99,6 +100,9 @@
   }
 }
 
+.info{
+  text-decoration: underline  rgb(255, 254, 254);
+}
 
 //   loading
 .toast-container{
@@ -129,7 +133,7 @@ z-index: 999;
     }
 
     .form{
-      padding-top: 40%;
+      padding-top: 20%;
     }
 
  

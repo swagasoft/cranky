@@ -25,8 +25,6 @@ export class MyrecordPage implements OnInit {
 
  
     ngOnInit() {
-    
-      this.getRecord();
       console.log('RECORD INIT FIRES');
     
   
@@ -38,9 +36,10 @@ export class MyrecordPage implements OnInit {
       this.router.navigate(['game']);
     }
   
-    async presentFailNetwork() {
+    async presentToast(msg) {
       const toast = await this.toastController.create({
-        message: 'No internet connection!!!',
+        message: `${msg}`,
+        position: 'middle',
         duration: 2000
       });
       toast.present();
@@ -52,6 +51,7 @@ export class MyrecordPage implements OnInit {
         response =>{
           this.gameRecord = response;
           this.loading = false;
+          
           console.log(this.gameRecord);
   
         }
@@ -63,9 +63,13 @@ export class MyrecordPage implements OnInit {
       this.userService.deleteGameRecord(id).subscribe( res => {
         this.getRecord();
         this.loading = false;
+        let msg = 'record deleted successful!';
+        this.presentToast(msg);
       },
       err => {
         this.loading = false;
+        let msg = 'error deleting record!';
+        this.presentToast(msg);
         this.getRecord();
       });
     }

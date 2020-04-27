@@ -3,44 +3,41 @@
     
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    
-    <img class="rounded-top"  src="../../../assets/icon/Logoicon.png">
+    </ion-buttons> <div class="row d-flex justify-content-center">
+      <img class="rounded-top"  src="../../../assets/icon/Logoicon.png">
+    </div> 
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="content">
-
-    <!-- fab placed to the (vertical) center and start -->
-
   <!-- content area --> 
   <div class=" m-0">
   <div class="resp-container game-over-section m-0">
       <ion-card class=" d-flex justify-content-center m-0">
         <div id="clockdiv"> 
-          <ion-row>
+          <ion-row> 
               <ion-row>
                   <div> 
-                      <span class="days" id="day">{{gameService.timeDays }} </span> 
+                      <span class="days" id="day">{{timeDays }} </span> 
                       <div class="smalltext">DAY</div> 
                     </div>
               </ion-row>
                  <ion-row>
                     <div> 
-                        <span class="hours" id="hour">{{gameService.timeHours}} </span> 
+                        <span class="hours" id="hour">{{timeHours}} </span> 
                         <div class="smalltext">HR</div> 
                       </div>
                  </ion-row>
                     <ion-row>
                         <div> 
-                            <span class="minutes" id="minute">{{gameService.timeMinute}} </span> 
+                            <span class="minutes" id="minute">{{timeMinute}} </span> 
                             <div class="smalltext">MIN</div> 
                           </div>
                     </ion-row> 
                      <ion-row>
                         <div> 
-                            <span class="seconds" id="second">{{gameService.timeSeconds}} </span> 
+                            <span class="seconds" id="second">{{timeSeconds}} </span> 
                             <div class="smalltext">SEC</div> 
                           </div> 
                      </ion-row>
@@ -48,63 +45,97 @@
         </div> 
       </ion-card>
 
-      <ion-card *ngIf="gameService.gameLive" class="d-flex m-0 justify-content-center">
-        <h1 class="text-white text-center font-weight-bold">LIVE!</h1>
+      <ion-card *ngIf="gameLive" class="d-flex m-0 justify-content-center">
+        <h1 class="text-white text-center animated infinite bounce slower">LIVE!</h1>
       </ion-card>
-      
-
-      <!-- <ion-card>
-        <h1>LIVE...</h1>
-      </ion-card> -->
-
-      <ion-card *ngIf="gameService.gameNotLive" class="m-0 d-flex justify-content-center">
-        <iframe class="m-0 " width="100%" height="75%"
-        src="https://www.youtube.com/embed/xA7D3JjbVo8"
-         ></iframe> 
+   
+      <ion-card *ngIf="gameNotLive" class="m-0 d-flex justify-content-center">
+        <iframe  width="500" height="200" #video_link class="m-0 " 
+         [src]='safeVideo' frameborder="0"
+        ></iframe> 
+        <!-- src="https://www.youtube.com/embed/1aY0xA6allA" -->
+        <!-- [src]='safeVideo' -->
       </ion-card>
   </div>
 
-    <div class="game-tip" *ngIf="gameService.gameNotLive">
+    <div class="game-tip" *ngIf="gameNotLive">
         <ion-card style="background-color: e0eebb;"  class="m-0 "  rows="6" cols="20">
-          <ion-card-header class="text-center  green darken-4 text-white">GAME TIPS& FUN FACTS</ion-card-header>
-          <ion-card-content class=" " >
+          <ion-card-header class="text-center  green darken-4 text-white">CLUE TIPS</ion-card-header>
+
+          <ion-row class="d-flex justify-content-center">
+              <ion-icon size="large" (click)="clickSlidePrevious()" 
+             color="light" name="arrow-dropleft"></ion-icon> 
+            <ion-button class="success" size="small"(click)="presentNotice()" > click here for more information!</ion-button>
+            
+              <ion-icon (click)="clickSlidetoNext()"  size="large" 
+             color="light" name="arrow-dropright"></ion-icon> 
+          </ion-row>
            <ion-slides #mySlider>
              <ion-slide  *ngFor="let item of gameService?.gameTipArray">
-               <ion-card>
+               <div class="m-0 p-0"> 
                  <h2 style="font-size: large;" class=" text-center text-white">{{item.tip}}</h2>
-               </ion-card>
+               </div>
                 </ion-slide>
            </ion-slides>
-          </ion-card-content>
+         
         </ion-card>
     </div>
 
-    <div class="  mt-5 game-live" *ngIf="gameService.gameLive">
-        <ion-list>
-            <ion-button expand="block" size="large" color="success"  [routerLink]="['/playsection']">
-               <ion-icon class="mr-3" name="logo-game-controller-b"></ion-icon>  CONTINUE TO GAME</ion-button>
+    <div class=" mt-5 game-live" *ngIf="gameLive">
 
-            <ion-button expand="block"  size="large" color="success" 
-             [routerLink]="['/leaderboard']"><ion-icon  class="mr-3" name="trophy"></ion-icon>  LEADERBOARD</ion-button>
+      <ion-list>
+            <ion-button expand="block"  color="success"  [routerLink]="['/playsection']" routerDirection="forward">
+               <ion-icon class="mr-3 " name="logo-game-controller-b"></ion-icon>  CONTINUE TO GAME</ion-button>
 
-            <ion-button expand="block"  size="large" color="success"
-              [routerLink]="['/myrecord']"> <ion-icon  class="mr-3" name="list"></ion-icon> MY RECORD(S)</ion-button>
+            <ion-button expand="block"   color="success" 
+             [routerLink]="['/leaderboard']" routerDirection="backward"><ion-icon  class="mr-3" name="trophy" routerDirection="forward"></ion-icon>  LEADERBOARD</ion-button>
+
+            <ion-button expand="block"   color="success"
+              [routerLink]="['/myrecord']" routerDirection="forward"> <ion-icon  class="mr-3" name="list"></ion-icon> MY RECORD(S)</ion-button>
         </ion-list>
 
+        
+          <!-- <img class="pt-5" id="fiftyk" src="../../assets/animation/50k.png" width="50"  alt="">
+          <button  (click)="doMagic()">magic</button> -->
        
     </div>
     
-    <!-- <div  class=" ">
-      <div class="toast-container mb-5">
-        <ion-chip>
-          <ion-label class="font-weight-bold text-danger"> YOUR ACCOUNT IS LOW! CLICK HERE  </ion-label> <br>
-          <ion-icon (click)="makePayment()" size="large" name="wallet" color="success"></ion-icon>
-        </ion-chip>
-      </div>
-    </div> -->
-    <div id="snackbar" *ngIf="userService.networkDisconnet" >No internet connection !</div>
+  
+    <div class="m-5 bg-dark text-center text-white" *ngIf="userService.networkDisconnet" >No internet connection !</div>
   </div>
+  
+
+    <!-- loader -->
+    <div *ngIf="loading" >
+      <div class="toast-container ">
+          <div class="lds-roller"><div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div></div>
+      </div>
+    </div>
   <!-- end content area -->
 </div>
+
+<ion-fab horizontal="start" vertical="bottom" slot="fixed">
+  <ion-fab-button color="success">
+    <ion-icon name="more"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-button color="light"> 
+      <a  style="color:#00351a;" [routerLink]="['/testimonials']"> <ion-icon name="trophy"></ion-icon> TESTIMONIALS</a>
+    </ion-button>
+    <ion-button color="light"> 
+      <a  style="color:#00351a;" [routerLink]="['/howtoplay']" ><ion-icon name="logo-game-controller-a"></ion-icon>  HOW TO PLAY</a>
+    </ion-button>
+    <ion-button color="light"> 
+      <a  style="color:#00351a;" [routerLink]="['/contactus']" ><ion-icon name="chatbubbles"></ion-icon> CONTACT US</a>
+    </ion-button>
+    <ion-button color="light">
+      <a  style="color:#00351a;" href="https:/i-sabi.com/privacy-policy-2/" > <ion-icon name="list"></ion-icon> POLICY</a>
+    </ion-button>
+    <ion-button color="light">
+      <a style="color:#00351a;" href="https:/i-sabi.com/faq/" ><ion-icon name="help"></ion-icon>  FAQ </a>
+    </ion-button>
+  </ion-fab-list>
+</ion-fab>
 </ion-content>
 

@@ -21,7 +21,7 @@ export class AdminGuard implements CanActivate {
         this.router.navigateByUrl('/gamesection');
         this.userService.deleteToken();
         return false;
-  
+   
       }
       return true;
     }
