@@ -29,6 +29,7 @@
     "@ionic-native/app-rate": "^5.21.4",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/facebook": "^5.18.0",
+    "@ionic-native/firebase": "^5.18.0",
     "@ionic-native/ionic-webview": "^5.17.1",
     "@ionic-native/local-notifications": "^5.20.0",
     "@ionic-native/native-audio": "^4.20.0",
@@ -41,11 +42,16 @@
     "angular-bootstrap-md": "^8.4.0",
     "angular-rave": "^2.0.1",
     "angular4-paystack": "^2.3.3",
+<<<<<<< HEAD
     "angular4-ravepayment": "github:iamraphson/angular4-ravepayment",
     "animate.css": "^3.7.2",
     "animejs": "^3.1.0",
     "bounce.js": "^0.8.2",
     "cordova-android": "^8.1.0",
+=======
+    "angularfire2": "^5.2.3",
+    "cordova-android": "8.1.0",
+>>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
     "cordova-browser": "^6.0.0",
     "cordova-plugin-android-permissions": "^1.0.2",
     "cordova-plugin-apprate": "^1.5.0",
@@ -53,16 +59,26 @@
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-facebook4": "^6.2.0",
+<<<<<<< HEAD
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
+=======
+    "cordova-plugin-firebase": "^2.0.5",
+>>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
     "cordova-plugin-nativeaudio": "^3.0.9",
     "cordova-plugin-nativestorage": "^2.3.2",
     "cordova-plugin-network-information": "^2.0.2",
     "core-js": "^2.5.4",
+<<<<<<< HEAD
     "ionic-stepper": "^1.1.0",
     "magic.css": "^1.4.5",
     "number-flip": "^1.1.8",
     "onesignal-cordova-plugin": "^2.8.2",
     "phonegap-plugin-multidex": "^1.0.0",
+=======
+    "firebase": "^7.6.0",
+    "ng-otp-input": "^1.6.2",
+    "phonegap-plugin-push": "^2.3.0",
+>>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "web": "0.0.2",
@@ -114,10 +130,21 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-nativeaudio": {},
       "cordova-plugin-network-information": {},
+<<<<<<< HEAD
       "cordova-plugin-local-notification": {},
       "cordova-plugin-console": {},
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-apprate": {}
+=======
+      "cordova-plugin-facebook4": {
+        "APP_ID": "1007158809644514",
+        "APP_NAME": "I-SABI",
+        "FACEBOOK_HYBRID_APP_EVENTS": "false",
+        "FACEBOOK_ANDROID_SDK_VERSION": "5.5.2"
+      },
+      "phonegap-plugin-push": {},
+      "cordova-plugin-firebase": {}
+>>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
     },
     "platforms": [
       "browser",

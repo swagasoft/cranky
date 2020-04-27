@@ -109,7 +109,12 @@ constructor(private http: HttpClient,
     postTransaction(tranx){
       return this.http.post(environment.apiBaseUrl + `/submit-transaction`, tranx);
     }
+<<<<<<< HEAD
     postManualTransaction(tranx){
+=======
+
+    postManualTrans(tranx){
+>>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
       return this.http.post(environment.apiBaseUrl + `/submit-manual-transaction`, tranx);
     }
 

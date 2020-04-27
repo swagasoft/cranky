@@ -25,7 +25,11 @@ transaction: any;
       res => {
         this.loading = false;
         this.transaction = res['transaction'];
+<<<<<<< HEAD
         console.log(res);
+=======
+        console.log(this.transaction);
+>>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
       },
       err => {
         this.loading = false;

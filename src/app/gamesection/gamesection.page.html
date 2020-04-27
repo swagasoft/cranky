@@ -48,6 +48,7 @@
       <ion-card *ngIf="gameLive" class="d-flex m-0 justify-content-center">
         <h1 class="text-white text-center animated infinite bounce slower">LIVE!</h1>
       </ion-card>
+<<<<<<< HEAD
    
       <ion-card *ngIf="gameNotLive" class="m-0 d-flex justify-content-center">
         <iframe  width="500" height="200" #video_link class="m-0 " 
@@ -55,6 +56,18 @@
         ></iframe> 
         <!-- src="https://www.youtube.com/embed/1aY0xA6allA" -->
         <!-- [src]='safeVideo' -->
+=======
+      
+
+      <!-- <ion-card>
+        <h1>LIVE...</h1>
+      </ion-card> -->
+      <!-- [src]='showVideo()' -->
+      <ion-card *ngIf="gameService.gameNotLive" class="m-0 d-flex justify-content-center">
+        <iframe class="m-0 " width="100%" height="75%"
+         src="https://www.youtube.com/embed/xA7D3JjbVo8"
+         ></iframe> 
+>>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
       </ion-card>
   </div>
 

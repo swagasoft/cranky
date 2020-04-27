@@ -4,9 +4,14 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/user.service';
 import { AccountService } from 'src/app/shared/account.service';
+<<<<<<< HEAD
 import { RaveOptions } from 'angular-rave';
 import { ModalController, AlertController, ToastController, Platform } from '@ionic/angular';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
+=======
+import { ModalController, AlertController, ToastController } from '@ionic/angular';
+import { NgModel } from '@angular/forms';
+>>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
 
 @Component({
   selector: 'app-account',
@@ -212,9 +217,15 @@ async showAlert() {
          this.showPaymentButtons = false;
          const process = { username : this.appUsername , amount: this.model.amount, status : 'processing',
           trxref: this.reference, account_id: this.accountService.user_id, transaction : ' manual transfer'};
+<<<<<<< HEAD
          process.username = this.appUsername;
          console.log('Confirm Okay', process);
          this.userService.postManualTransaction(process).subscribe(
+=======
+          process.username = this.appUsername;
+          console.log('Confirm Okay', process);
+          this.userService.postManualTrans(process).subscribe(
+>>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
             res => {
               console.log(res);
               this.presentSucess();
@@ -239,6 +250,7 @@ async presentSucess() {
     duration: 4000
   });
   toast.present(); 
+<<<<<<< HEAD
 }
 
 
@@ -278,8 +290,38 @@ async enterAmountInput() {
   });
 
   await alert.present();
+=======
+>>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
 }
 
+async presentAmountInput() {
+  const alert = await this.alertController.create({
+    header: 'ENTER AMOUNT',
+    inputs: [ {
+        name: 'amount',
+        type: 'text',
+        placeholder: 'example 2000'
+      }],
+    buttons: [ {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'Okay',
+        handler: (value) => {
+          console.log('Confirm Okay', value);
+          this.model.amount = value.amount;
+          this.payNow();
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
 
 // cashout
 async enterCashoutAmount() {
