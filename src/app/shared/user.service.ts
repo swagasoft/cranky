@@ -12,6 +12,9 @@ import { Network } from '@ionic-native/network/ngx';
   providedIn: 'root'
 })
 export class UserService {
+  postManualTrans(process: { username: any; amount: string; status: string; trxref: any; account_id: string; transaction: string; }) {
+    throw new Error("Method not implemented.");
+  }
   messsageFromServer : any;
   token: any;
   accountBalance: any;
@@ -109,12 +112,7 @@ constructor(private http: HttpClient,
     postTransaction(tranx){
       return this.http.post(environment.apiBaseUrl + `/submit-transaction`, tranx);
     }
-<<<<<<< HEAD
     postManualTransaction(tranx){
-=======
-
-    postManualTrans(tranx){
->>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
       return this.http.post(environment.apiBaseUrl + `/submit-manual-transaction`, tranx);
     }
 

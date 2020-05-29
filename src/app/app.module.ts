@@ -10,14 +10,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 // import { Facebook , FacebookOriginal} from '@ionic-native/facebook';
 import { Facebook } from '@ionic-native/facebook/ngx';
-<<<<<<< HEAD
 // import { NativeAudio } from '@ionic-native/native-audio';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-=======
 import {AngularFireModule} from 'angularFire2';
 import {AngularFirestoreModule} from 'angularFire2/firestore';
 
->>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -37,24 +34,13 @@ import { GameServiceService } from './shared/game-service.service';
 import { AdminAccountComponent } from './admin-account/admin-account.component';
 import { AngularRaveModule } from 'angular-rave';
 import { GamePipe } from './game.pipe';
-<<<<<<< HEAD
 import { AppRate } from '@ionic-native/app-rate/ngx';
 import {MaterialModule} from './../shared/material.module';
 
 
-=======
 import { from } from 'rxjs';
 
-const firebase = {
-  apiKey : "AIzaSyCkayajnRPdP1d_HsPOQxIq5sMNYZKLaTY ",
-  authDomain : "i-sabi-773b4.firebaseapp.com",
-  databaseUrl : "https://i-sabi-773b4.firebaseio.com",
-  projectId  : "i-sabi-773b4",
-  storageBucket : "i-sabi-773b4.appspot.com",
-  messagingSenderId : "76166240437"
 
-}
->>>>>>> fd6babf481a5f38dfc239a92a203c70c9de79f13
 
 @NgModule({
   declarations: [AppComponent, AdminAccountComponent,
@@ -76,8 +62,6 @@ const firebase = {
       isTest: true,
     }),
     IonicModule.forRoot(),
-    AngularFireModule.initializeApp(firebase),
-    AngularFirestoreModule,
     AppRoutingModule,
     
   ],
